@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Service.Showcase": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "local"
+      },
+      "applicationUrl": "https://localhost:7032;http://localhost:5032",
+      "dotnetRunMessages": true
+    }
+  }
+}

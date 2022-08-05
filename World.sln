@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# 
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D92776D8-E4E8-4D7E-AC90-6E6A092A2175}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco", "Umbraco\Umbraco.csproj", "{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Showcase", "Service.Showcase\Service.Showcase.csproj", "{33271EAF-070A-4555-8EEC-767467A5BB0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UmbDock", "UmbDock\UmbDock.csproj", "{D8967048-CA6F-47A2-8372-C4A00AF21A16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33271EAF-070A-4555-8EEC-767467A5BB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33271EAF-070A-4555-8EEC-767467A5BB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33271EAF-070A-4555-8EEC-767467A5BB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33271EAF-070A-4555-8EEC-767467A5BB0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8967048-CA6F-47A2-8372-C4A00AF21A16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8967048-CA6F-47A2-8372-C4A00AF21A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8967048-CA6F-47A2-8372-C4A00AF21A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8967048-CA6F-47A2-8372-C4A00AF21A16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D1BEF9FD-EAD6-4C3A-8480-517B65D5E6A6} = {D92776D8-E4E8-4D7E-AC90-6E6A092A2175}
+		{33271EAF-070A-4555-8EEC-767467A5BB0A} = {D92776D8-E4E8-4D7E-AC90-6E6A092A2175}
+	EndGlobalSection
+EndGlobal
