@@ -10,7 +10,6 @@ services:
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-      - ./init:/docker-entrypoint-initdb.d
         
   db:
     container_name: dbServer
@@ -31,6 +30,7 @@ services:
       - media:/app/wwwroot/media
       - logs:/app/umbraco/Logs
       - ./Umbraco/appsettings.json:/app/appsettings.json
+      - ./Umbraco/Views:/app/Views
     ports:
       - "8000:80"
     depends_on:
