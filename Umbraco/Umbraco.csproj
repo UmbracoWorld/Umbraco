@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.11" />
     <PackageReference Include="Umbraco.Cms" Version="10.1.0" />
   </ItemGroup>
 
@@ -31,6 +32,12 @@
 <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
   <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
   <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
+</ItemGroup>
+<ItemGroup>
+  <Folder Include="umbraco" />
+</ItemGroup>
+<ItemGroup>
+  <None Include="wwwroot\assets\css\overrides.css" />
 </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-namespace UmbDock
+using Umbraco.Features.MembersAuth.Github;
+
+namespace UmbracoWorld
 {
     public class Startup
     {
@@ -33,6 +35,7 @@ namespace UmbDock
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
+                .AddGitHubMemberAuthentication()
                 .Build();
         }
 

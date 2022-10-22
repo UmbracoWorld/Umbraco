@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<UmbracoWorld.PublishedModels.LoginRegister>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Web.Common.Models
+@using Umbraco.Cms.Web.Common.Security
+@using Umbraco.Cms.Web.Website.Controllers
+@inject IMemberExternalLoginProviders memberExternalLoginProviders
+
+@{
+	Layout = "Layouts/_Layout.cshtml";
+    
+        
+    var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
+    var logoutModel = new PostRedirectModel();
+    // You can modify this to redirect to a different URL instead of the current one
+    logoutModel.RedirectUrl = null;
+}
+
+@if (isLoggedIn)
+{
+    <div class="login-status">
+
+        <p>Welcome back <strong>@Context?.User?.Identity?.Name</strong>!</p>
+
+        @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = logoutModel.RedirectUrl }))
+        {
+            <button type="submit" class="btn btn-primary">Log out</button>
+        }
+
+    </div>
+}
+else
+{
+    var loginProviders = await memberExternalLoginProviders.GetMemberProvidersAsync();
+    var externalSignInError = ViewData.GetExternalSignInProviderErrors();
+    if (loginProviders.Any())
+    {
+        <hr/>
+        <h4>Or using external providers</h4>
+        if (externalSignInError?.AuthenticationType is null && externalSignInError?.Errors.Any() == true)
+        {
+            @Html.DisplayFor(x => externalSignInError.Errors);
+        }
+
+        @foreach (var login in await memberExternalLoginProviders.GetMemberProvidersAsync())
+        {
+
+            @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
+            {
+                <button type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
+                    Sign in with @login.AuthenticationScheme.DisplayName
+                </button>
+
+                if (externalSignInError?.AuthenticationType == login.ExternalLoginProvider.AuthenticationType)
+                {
+                    @Html.DisplayFor(x => externalSignInError.Errors);
+                }
+            }
+        }
+    }
+
+    <div class="container">
+        @await Html.PartialAsync("/Views/Partials/Login.cshtml")
+    </div>
+
+    <div class="container">
+        @await Html.PartialAsync("/Views/Partials/Register.cshtml")
+    </div>
+
+}

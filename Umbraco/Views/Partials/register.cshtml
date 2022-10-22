@@ -1,0 +1,63 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@using Microsoft.AspNetCore.Http.Extensions
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Security
+@using Umbraco.Cms.Web.Website.Controllers
+@using Umbraco.Cms.Web.Website.Models
+@using Umbraco.Controllers
+@using Umbraco.Extensions
+@inject MemberModelBuilderFactory memberModelBuilderFactory;
+
+@{
+    // Build a registration model with parameters
+    var registerModel = new RegisterModel();
+
+    var success = TempData["FormSuccess"] != null;
+
+    var routeUrl = Url.RouteUrl(ViewContext.RouteData.Values);
+    var qsPath = ViewContext.HttpContext.Request.QueryString.Value;
+    var returnUrl = $"{routeUrl}{qsPath}";
+}
+
+
+@if (success)
+{
+    @* This message will show if registerModel.RedirectUrl is not defined (default) *@
+    <p class="text-success">🌍 Registration succeeded.</p>
+}
+else
+{
+    using (Html.BeginUmbracoForm<MemberRegisterController>("HandleRegisterMember", 
+        new
+        {
+            RedirectUrl = returnUrl
+        }))
+    {
+        <h2>Create your Umbraco World account!</h2>
+        <hr/>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="mb-3">
+            <label asp-for="@registerModel.Name" class="form-label">Display Name</label>
+            <input asp-for="@registerModel.Name" class="form-control" aria-required="true"/>
+            <span asp-validation-for="@registerModel.Name" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@registerModel.Email" class="form-label"></label>
+            <input asp-for="@registerModel.Email" class="form-control" autocomplete="username" aria-required="true"/>
+            <span asp-validation-for="@registerModel.Email" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@registerModel.Password" class="form-label"></label>
+            <input asp-for="@registerModel.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
+            <span asp-validation-for="@registerModel.Password" class="form-text text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@registerModel.ConfirmPassword" class="form-label"></label>
+            <input asp-for="@registerModel.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true"/>
+            <span asp-validation-for="@registerModel.ConfirmPassword" class="form-text text-danger"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create my account</button>
+    }
+}
