@@ -6,64 +6,53 @@
 @inject IMemberExternalLoginProviders memberExternalLoginProviders
 
 @{
-	Layout = "Layouts/_Layout.cshtml";
-    
-        
+    Layout = "Layouts/_Layout.cshtml";
+    ViewData["HideNavBar"] = true;
+
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
     var logoutModel = new PostRedirectModel();
     // You can modify this to redirect to a different URL instead of the current one
     logoutModel.RedirectUrl = null;
-}
 
-@if (isLoggedIn)
-{
-    <div class="login-status">
 
-        <p>Welcome back <strong>@Context?.User?.Identity?.Name</strong>!</p>
-
-        @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = logoutModel.RedirectUrl }))
-        {
-            <button type="submit" class="btn btn-primary">Log out</button>
-        }
-
-    </div>
-}
-else
-{
     var loginProviders = await memberExternalLoginProviders.GetMemberProvidersAsync();
     var externalSignInError = ViewData.GetExternalSignInProviderErrors();
-    if (loginProviders.Any())
-    {
-        <hr/>
-        <h4>Or using external providers</h4>
-        if (externalSignInError?.AuthenticationType is null && externalSignInError?.Errors.Any() == true)
-        {
-            @Html.DisplayFor(x => externalSignInError.Errors);
-        }
-
-        @foreach (var login in await memberExternalLoginProviders.GetMemberProvidersAsync())
-        {
-
-            @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
-            {
-                <button type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
-                    Sign in with @login.AuthenticationScheme.DisplayName
-                </button>
-
-                if (externalSignInError?.AuthenticationType == login.ExternalLoginProvider.AuthenticationType)
-                {
-                    @Html.DisplayFor(x => externalSignInError.Errors);
-                }
-            }
-        }
-    }
-
-    <div class="container">
-        @await Html.PartialAsync("/Views/Partials/Login.cshtml")
-    </div>
-
-    <div class="container">
-        @await Html.PartialAsync("/Views/Partials/Register.cshtml")
-    </div>
-
 }
+<div class="login-container">
+    <div class="left-side" style="background-image: url('assets/images/emma.jpg')">
+        <span class="alt-text">Filip Bech talking about all things Umbraco</span>
+    </div>
+    @if (isLoggedIn)
+    {
+        <div class="login-status">
+
+            <p>Welcome back <strong>@Context?.User?.Identity?.Name</strong>!</p>
+
+            @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = logoutModel.RedirectUrl }))
+            {
+                <button type="submit" class="btn btn-primary">Log out</button>
+            }
+
+        </div>
+    }
+    else
+
+    {
+        <div class="right-side container">
+
+            @* <img class="logo" src="assets/images/world.png" width="101" alt="umbraco world logo"> *@
+
+            <div class="logo">
+                <a href="/">
+                    <lottie-player src="assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
+                </a>
+            </div>
+
+            @await Html.PartialAsync("/Views/Partials/Login.cshtml")
+
+
+            @* @await Html.PartialAsync("/Views/Partials/Register.cshtml") *@
+
+        </div>
+    }
+</div>

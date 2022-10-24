@@ -1,15 +1,11 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
-
 @using Umbraco.Cms.Web.Common.Models
 @using Umbraco.Cms.Web.Common.Security
 @using Umbraco.Cms.Web.Website.Controllers
-@using Umbraco.Cms.Core.Services
-@using Umbraco.Extensions
 @inject IMemberExternalLoginProviders memberExternalLoginProviders
-@inject ITwoFactorLoginService twoFactorLoginService
+
 @{
-   
     var loginModel = new LoginModel();
     // You can modify this to redirect to a different URL instead of the current one
     loginModel.RedirectUrl = null;
@@ -20,90 +16,73 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
 
-@if (ViewData.TryGetTwoFactorProviderNames(out var providerNames))
-{
-
-    foreach (var providerName in providerNames)
-    {
-        <div class="2fa-form">
-            <h4>Two factor with @providerName.</h4>
-            <div asp-validation-summary="All" class="text-danger"></div>
-            @using (Html.BeginUmbracoForm<UmbTwoFactorLoginController>(nameof(UmbTwoFactorLoginController.Verify2FACode)))
-            {
-
-                <text>
-                    <input type="hidden" name="provider" value="@providerName"/>
-                    Input security code: <input name="code" value=""/><br/>
-                    <button type="submit" class="btn btn-primary">Validate</button>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                </text>
-            }
-        </div>
-    }
-
-}
-else
-{
-
-
 <div class="login-form">
+    @{
+        var loginProviders = await memberExternalLoginProviders.GetMemberProvidersAsync();
+        var externalSignInError = ViewData.GetExternalSignInProviderErrors();
 
-    @using (Html.BeginUmbracoForm<UmbLoginController>(
-        "HandleLogin", new { RedirectUrl = loginModel.RedirectUrl })) {
+        if (loginProviders.Any())
+        {
+            if (externalSignInError?.AuthenticationType is null && externalSignInError?.Errors.Any() == true)
+            {
+                @Html.DisplayFor(x => externalSignInError.Errors)
+            }
+            <div class="btn-group btn-group-lg justify-content-center">
+                @foreach (var login in await memberExternalLoginProviders.GetMemberProvidersAsync())
+                {
+                    @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
+                    {
+                        <input type="hidden" name="returnUrl" value="/"/>
+                        <button class="btn btn-outline-primary" type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
+                            <span><img src="assets/images/icons/github.png"/> Sign in with @login.AuthenticationScheme.DisplayName</span>
+                        </button>
 
-            <h4>Log in with a local account.</h4>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-3">
-                <label asp-for="@loginModel.Username" class="form-label"></label>
-                <input asp-for="@loginModel.Username" class="form-control" />
-                <span asp-validation-for="@loginModel.Username" class="form-text text-danger"></span>
+                        if (externalSignInError?.AuthenticationType == login.ExternalLoginProvider.AuthenticationType)
+                        {
+                            @Html.DisplayFor(x => externalSignInError.Errors)
+                        }
+                    }
+                }
             </div>
-            <div class="mb-3">
+        }
+    }
+    <h5 class="text-center">OR</h5>
+    @using (Html.BeginUmbracoForm<UmbLoginController>(
+        "HandleLogin", new { RedirectUrl = loginModel.RedirectUrl }))
+    {
+        <form>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="@loginModel.Username"></label>
+                <input asp-for="@loginModel.Username" class="form-control" aria-describedby="emailHelp"/>
+                <span asp-validation-for="@loginModel.Username" class="form-text text-danger"></span>
+                <div id="emailHelp" class="form-text text-muted">This is your email address.</div>
+                
+
+            </div>
+            <div class="form-group mb-3">
                 <label asp-for="@loginModel.Password" class="form-label"></label>
-                <input asp-for="@loginModel.Password" class="form-control" />
+                <input asp-for="@loginModel.Password" class="form-control"/>
                 <span asp-validation-for="@loginModel.Password" class="form-text text-danger"></span>
             </div>
-            <div class="mb-3 form-check">
+            <div class="form-check mb-3">
                 <input asp-for="@loginModel.RememberMe" class="form-check-input">
                 <label asp-for="@loginModel.RememberMe" class="form-check-label">
                     @Html.DisplayNameFor(m => loginModel.RememberMe)
                 </label>
             </div>
+            <button type="submit" class="btn btn-primary">log in</button>
 
-            <button type="submit" class="btn btn-primary">Log in</button>
+
+            <div class="mt-5 small">
+                <a href="/register">Need an account?</a>
+                <br/>
+                <a href="/register">Forgotten your password?</a>
+            </div>
 
 
-        }
-@{
-    var loginProviders = await memberExternalLoginProviders.GetMemberProvidersAsync();
-    var externalSignInError = ViewData.GetExternalSignInProviderErrors();
-
-    if (loginProviders.Any())
-    {
-        <hr/>
-        <h4>Or using external providers</h4>
-        if (externalSignInError?.AuthenticationType is null && externalSignInError?.Errors.Any() == true)
-        {
-            @Html.DisplayFor(x => externalSignInError.Errors);
-        }
-
-        @foreach (var login in await memberExternalLoginProviders.GetMemberProvidersAsync())
-        {
-
-            @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
-            {
-                <button type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
-                    Sign in with @login.AuthenticationScheme.DisplayName
-                </button>
-
-                if (externalSignInError?.AuthenticationType == login.ExternalLoginProvider.AuthenticationType)
-                {
-                    @Html.DisplayFor(x => externalSignInError.Errors);
-                }
-            }
-        }
+        </form>
     }
-}
+
 </div>
-}

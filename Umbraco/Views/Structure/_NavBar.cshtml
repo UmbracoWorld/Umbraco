@@ -1,0 +1,68 @@
+﻿@using Umbraco.Cms.Web.Website.Controllers
+@{
+    var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+
+
+        <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
+            @* <img class="me-2" src="/assets/images/world.png" alt="Umbraco World logo" width="48" height="48"/> *@
+            @* <div>Umbraco World</div> *@
+            <lottie-player class="logo" src="assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Showcases</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Resources</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                        <a class="dropdown-item" href="#">What is Umbraco World?</a>
+                        <a class="dropdown-item" href="#">Friends of Umbraco world</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">How do I get involved?</a>
+                    </div>
+                </li>
+                @if (isLoggedIn)
+                {
+                    <li class="nav-item ">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle" src="assets/images/userPlaceholder.png" width="48" height="48"/>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">My account</a>
+                            <div class="dropdown-divider"></div>
+                            @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = "/" }))
+                            {
+                                <button type="submit" class="dropdown-item text-danger" href="#">Logout</button>
+                            }
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <a href="/login" class="btn btn-primary">Login</a>
+                }
+
+            </ul>
+        </div>
+    </div>
+</nav>

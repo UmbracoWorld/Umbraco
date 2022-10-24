@@ -1,3 +1,5 @@
+using Umbraco.Common;
+using Umbraco.Common.Services;
 using Umbraco.Features.MembersAuth.Github;
 
 namespace UmbracoWorld
@@ -37,6 +39,9 @@ namespace UmbracoWorld
                 .AddComposers()
                 .AddGitHubMemberAuthentication()
                 .Build();
+
+            services.AddSingleton<ITempDataService, TempDataService>();
+            services.AddSingleton<IToastNotificationService, ToastNotificationService>();
         }
 
         /// <summary>
@@ -50,6 +55,8 @@ namespace UmbracoWorld
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseUmbraco()
                 .WithMiddleware(u =>

@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core;
 using Umbraco.Cms.Web.Common.Security;
+using Umbraco.Common;
+using Umbraco.Common.Models;
+using Umbraco.Common.Services;
 
 namespace Umbraco.Features.MembersAuth.Github;
 
@@ -8,6 +11,13 @@ namespace Umbraco.Features.MembersAuth.Github;
 public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<MemberExternalLoginProviderOptions>
 {
     public const string SchemeName = "GitHub";
+    private readonly IToastNotificationService _toastNotificationService;
+
+
+    public GitHubMemberExternalLoginProviderOptions(IToastNotificationService toastNotificationService)
+    {
+        _toastNotificationService = toastNotificationService;
+    }
 
     public void Configure(string name, MemberExternalLoginProviderOptions options)
     {
@@ -52,10 +62,13 @@ public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<M
             },
             OnExternalLogin = (user, loginInfo) =>
             {
-                // You can customize the member before it's saved whenever they have
-                // logged in with the external provider.
-                // i.e. Sync the member's name based on the Claims returned
-                // in the externalLogin info
+                var toast = new ToastModel
+                {
+                    Message = $"Successfully logged in with {loginInfo.ProviderDisplayName}", 
+                    Title = "Logged in"
+                };
+                
+                _toastNotificationService.AddToast(toast);
 
                 return true; //returns a boolean indicating if sign in should continue or not.
             }
