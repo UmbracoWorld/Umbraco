@@ -11,6 +11,8 @@
     {
         RedirectUrl = "/"
     };
+    
+    var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
 }
 
 @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> *@

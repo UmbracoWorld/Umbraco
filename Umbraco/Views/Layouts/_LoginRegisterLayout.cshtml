@@ -1,0 +1,23 @@
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "_Layout.cshtml";
+    ViewData["HideNavBar"] = true;
+}
+
+<div class="login-container">
+    <div class="left-side" style="background-image: url('assets/images/emma.jpg')">
+        <span class="alt-text">Filip Bech talking about all things Umbraco</span>
+    </div>
+    <div class="right-side container">
+
+        @* <img class="logo" src="assets/images/world.png" width="101" alt="umbraco world logo"> *@
+
+        <div class="logo">
+            <a href="/">
+                <lottie-player src="assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            </a>
+        </div>
+        
+        @RenderBody()
+    </div>
+</div>
