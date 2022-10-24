@@ -1,6 +1,11 @@
 ﻿@using Umbraco.Cms.Web.Website.Controllers
+@using Umbraco.Cms.Core.Security
+@inject IMemberManager memberManager
+
 @{
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
+    var currentMember = await memberManager.GetCurrentMemberAsync();
+    
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,8 +53,10 @@
                             <img class="rounded-circle" src="assets/images/userPlaceholder.png" width="48" height="48"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">My account</a>
+                            <div class="dropdown-item-text">@currentMember?.Name</div>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">My account</a>
+
                             @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = "/" }))
                             {
                                 <button type="submit" class="dropdown-item text-danger" href="#">Logout</button>
