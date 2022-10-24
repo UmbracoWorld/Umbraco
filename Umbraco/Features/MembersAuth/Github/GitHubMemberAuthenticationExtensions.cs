@@ -15,8 +15,9 @@ public static class GitHubMemberAuthenticationExtensions
                         memberAuthenticationBuilder.SchemeForMembers(GitHubMemberExternalLoginProviderOptions.SchemeName),
                         options =>
                         {
-                            options.ClientId = "";
-                            options.ClientSecret = "";
+                            options.ClientId = builder.Config.GetValue<string>("ExternalProviderCredentials:GithubClientID");
+                            options.ClientSecret = builder.Config.GetValue<string>("ExternalProviderCredentials:GithubClientSecret");
+                            
                             // although the "user" scope says it returns the email, it's in the wrong claim format
                             // so we must specify the "user:email" claim to allow auto-linking.
                             options.Scope.Add("user");
