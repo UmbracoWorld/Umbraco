@@ -10,9 +10,8 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Cms.Web.Website.Controllers;
-using Umbraco.Features.MembersAuth;
 
-namespace Umbraco.Controllers;
+namespace Umbraco.Features.MembersAuth;
 
 public class MemberRegisterController : SurfaceController
 {

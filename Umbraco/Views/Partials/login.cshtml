@@ -1,20 +1,21 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
-@using Umbraco.Cms.Web.Common.Models
 @using Umbraco.Cms.Web.Common.Security
 @using Umbraco.Cms.Web.Website.Controllers
+@using Umbraco.Features.MembersAuth
+@using LoginModel = Umbraco.Features.MembersAuth.LoginModel
 @inject IMemberExternalLoginProviders memberExternalLoginProviders
 
 @{
-    var loginModel = new LoginModel();
-    // You can modify this to redirect to a different URL instead of the current one
-    loginModel.RedirectUrl = null;
+    var loginModel = new LoginModel
+    {
+        RedirectUrl = "/"
+    };
 }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> *@
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> *@
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script> *@
 
 <div class="login-form">
     @{
@@ -47,42 +48,70 @@
         }
     }
     <h5 class="text-center">OR</h5>
-    @using (Html.BeginUmbracoForm<UmbLoginController>(
-        "HandleLogin", new { RedirectUrl = loginModel.RedirectUrl }))
+    @using (Html.BeginUmbracoForm<MemberLoginController>("HandleLogin", new
     {
-        <form>
-            <div asp-validation-summary="All" class="text-danger"></div>
-            
-            <div class="form-group mb-3">
-                <label asp-for="@loginModel.Username"></label>
-                <input asp-for="@loginModel.Username" class="form-control" aria-describedby="emailHelp"/>
-                <span asp-validation-for="@loginModel.Username" class="form-text text-danger"></span>
-                <div id="emailHelp" class="form-text text-muted">This is your email address.</div>
-                
-
+        RedirectUrl = loginModel.RedirectUrl
+    }, htmlAttributes: new { @novalidate = "true", @class="needs-validation"}))
+    {
+        @if (ViewData.ModelState.ContainsKey("loginModel"))
+        {
+            <div class="alert alert-danger">
+                @Html.ValidationMessage("loginModel")
             </div>
-            <div class="form-group mb-3">
-                <label asp-for="@loginModel.Password" class="form-label"></label>
-                <input asp-for="@loginModel.Password" class="form-control"/>
-                <span asp-validation-for="@loginModel.Password" class="form-text text-danger"></span>
-            </div>
-            <div class="form-check mb-3">
-                <input asp-for="@loginModel.RememberMe" class="form-check-input">
-                <label asp-for="@loginModel.RememberMe" class="form-check-label">
-                    @Html.DisplayNameFor(m => loginModel.RememberMe)
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary">log in</button>
+        }
 
 
-            <div class="mt-5 small">
-                <a href="/register">Need an account?</a>
-                <br/>
-                <a href="/register">Forgotten your password?</a>
-            </div>
+        <div class="form-group mb-3">
+            <label asp-for="@loginModel.Username"></label>
+            <input asp-for="@loginModel.Username" class="form-control" aria-describedby="emailHelp" required type="email"/>
+            <span asp-validation-for="@loginModel.Username" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+            <div class="invalid-feedback">Hmm… that email doesn't look valid</div>
 
 
-        </form>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="@loginModel.Password" class="form-label"></label>
+            <input asp-for="@loginModel.Password" class="form-control" required/>
+            <span asp-validation-for="@loginModel.Password" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+            <div class="invalid-feedback">Your password can't be empty!</div>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input asp-for="@loginModel.RememberMe" class="form-check-input">
+            <label asp-for="@loginModel.RememberMe" class="form-check-label">
+                @Html.DisplayNameFor(m => loginModel.RememberMe)
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">log in</button>
+
+
+        <div class="mt-5 small">
+            <a href="/register">Need an account?</a>
+            <br/>
+            <a href="/register">Forgotten your password?</a>
+        </div>
     }
 
+    <script>
+    (function () {
+      'use strict'
+      var forms = document.querySelectorAll('.needs-validation')
+    
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+    </script>
 </div>

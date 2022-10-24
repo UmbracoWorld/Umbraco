@@ -34,6 +34,7 @@
   <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
 </ItemGroup>
 <ItemGroup>
+  <Folder Include="Controllers" />
   <Folder Include="umbraco" />
   <Folder Include="wwwroot\assets\images\icons" />
 </ItemGroup>
