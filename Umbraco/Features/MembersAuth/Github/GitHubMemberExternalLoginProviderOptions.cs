@@ -61,12 +61,23 @@ public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<M
             OnAutoLinking = (autoLinkUser, loginInfo) =>
             {
                 
-                // publish a new notification so we can just deal with things there.
-                var notification = new NewMemberRegisteredNotification() { Username = autoLinkUser.UserName };
-                _eventAggregator.Publish(notification);
+
             },
             OnExternalLogin = (user, loginInfo) =>
             {
+                // We have to check if the user has 0 logins, and we know this is a new member.
+                // The OnAutoLinking callback is called before the user is persisted
+                // We need the user to be persisted before manipulating them
+                if (user.Logins.Count == 0)
+                {
+                    var notification = new NewMemberRegisteredNotification
+                    {
+                        Username = user.UserName
+                    };
+                
+                    _eventAggregator.Publish(notification);
+                }
+
                 var toast = new ToastModel
                 {
                     Message = $"Successfully logged in with {loginInfo.ProviderDisplayName}", 
