@@ -36,7 +36,7 @@ public class MyAccountSurfaceController : SurfaceController
         _publishedSnapshotAccessor = publishedSnapshotAccessor;
     }
 
-    public string GetMemberPropertyAlias(Expression<Func<Member, object>> expression)
+    public string GetMemberPropertyAlias(Expression<Func<Member, dynamic>> expression)
     {
         // throw an exception because it should never error
         return Member.GetModelPropertyType(_publishedSnapshotAccessor, expression)?.Alias ?? throw new InvalidOperationException();
@@ -65,7 +65,6 @@ public class MyAccountSurfaceController : SurfaceController
         }
         currentMember.SetValue(GetMemberPropertyAlias(member => member.GithubSocialLink!), profileSettings.SocialGithub);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.TwitterSocialLink!), profileSettings.SocialTwitter);
-        currentMember.SetValue(GetMemberPropertyAlias(member => member.ShowEmailOnProfile!), profileSettings.ShowEmailOnProfile);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.FavouriteDrink!), profileSettings.FavouriteDrink);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.FavouriteFood!), profileSettings.FavouriteFood);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.JobTitle!), profileSettings.JobTitle);
@@ -74,6 +73,11 @@ public class MyAccountSurfaceController : SurfaceController
         currentMember.SetValue(GetMemberPropertyAlias(member => member.CompanyName!), profileSettings.CompanyName);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.Bio!), profileSettings.AboutMe);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.PersonalSocialLink!), profileSettings.Website);
+
+        var showEmailOnProfileAlias =
+            Member.GetModelPropertyType(_publishedSnapshotAccessor, member => member.ShowEmailOnProfile)?.Alias;
+        currentMember.SetValue(showEmailOnProfileAlias, profileSettings.ShowEmailOnProfile);
+
         
         _memberService.Save(currentMember);
 
