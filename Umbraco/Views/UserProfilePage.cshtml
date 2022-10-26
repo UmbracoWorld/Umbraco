@@ -1,6 +1,17 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.UserProfilePage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Features.Profile.UserProfile?>
 @using ContentModels = UmbracoWorld.PublishedModels;
+@using Umbraco.Common.Constants
 @{
-	Layout = null;
+    Layout = "Layouts/_Layout.cshtml";
 }
+<div class="container">
+    @if (Model is null)
+    {
+        <h1>User not found</h1>
+    }
+    else
+    {
+        <img src="@Url.GetCropUrl(Model.Member.ProfileImage, ImageCropConstants.Square300)" />
+        <h1>@Model.Member.Name</h1>
+    }
+</div>

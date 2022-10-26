@@ -65,11 +65,13 @@ namespace UmbracoWorld
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
+                    
                     u.UseBackOffice();
                     u.UseWebsite();
                 })
                 .WithEndpoints(u =>
                 {
+                    u.EndpointRouteBuilder.MapControllers();
                     u.UseInstallerEndpoints();
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();

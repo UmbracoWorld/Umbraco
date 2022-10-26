@@ -187,6 +187,14 @@ namespace UmbracoWorld.PublishedModels
 		public virtual bool ShowEmailOnProfile => this.Value<bool>(_publishedValueFallback, "showEmailOnProfile");
 
 		///<summary>
+		/// Slug
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
+		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
+		[ImplementPropertyType("slug")]
+		public virtual string Slug => this.Value<string>(_publishedValueFallback, "slug");
+
+		///<summary>
 		/// Twitter Social Link
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
