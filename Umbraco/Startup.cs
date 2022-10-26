@@ -1,5 +1,6 @@
 using Umbraco.Common;
 using Umbraco.Common.Services;
+using Umbraco.Features;
 using Umbraco.Features.MembersAuth.Github;
 using Umbraco.Notifications;
 
@@ -40,6 +41,7 @@ namespace UmbracoWorld
                 .AddComposers()
                 .AddGitHubMemberAuthentication()
                 .AddCustomNotifications()
+                .AddFeatureServices()
                 .Build();
 
             services.AddSingleton<ITempDataService, TempDataService>();

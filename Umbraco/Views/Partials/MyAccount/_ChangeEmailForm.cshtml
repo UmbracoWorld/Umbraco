@@ -1,0 +1,43 @@
+﻿@model Umbraco.Features.MyAccount.ChangeEmail
+@using Umbraco.Features.MyAccount
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    const string methodSignatureName = nameof(MyAccountSurfaceController.HandleUpdateAccountSettings);
+}
+<h2>Change your email</h2>
+<p class="small">
+    Your email address is also your username, it's what you use to log in.
+</p>
+
+
+@using (Html.BeginUmbracoForm<MyAccountSurfaceController>(methodSignatureName, new { }, new
+{
+    novalidate = "true", @class = "needs-validation pt-3 pb-3"
+}))
+
+{
+    @if (ViewData.ModelState.ContainsKey(methodSignatureName))
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationMessage(methodSignatureName)
+        </div>
+    }
+
+    <div class="form-group mb-3">
+        <label asp-for="@Model.Email"></label>
+        <input asp-for="@Model.Email" class="form-control" aria-describedby="emailHelp" required type="email"/>
+        <span asp-validation-for="@Model.Email" class="form-text text-danger"></span>
+        <div class="valid-feedback">👍 Looks good</div>
+        <div class="invalid-feedback">Hmm… that email doesn't look right</div>
+    </div>
+    
+    <div class="form-group mb-3">
+        <label asp-for="@Model.ConfirmEmail"></label>
+        <input asp-for="@Model.ConfirmEmail" class="form-control" aria-describedby="emailHelp" required type="email"/>
+        <span asp-validation-for="@Model.ConfirmEmail" class="form-text text-danger"></span>
+        <div class="valid-feedback">👍 Looks good</div>
+        <div class="invalid-feedback">Hmm… that email doesn't look right</div>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Change my email</button>
+}

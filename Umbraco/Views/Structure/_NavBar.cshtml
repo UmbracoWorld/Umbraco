@@ -5,15 +5,12 @@
 @{
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
     var currentMember = await memberManager.GetCurrentMemberAsync();
-
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
-            @* <img class="me-2" src="/assets/images/world.png" alt="Umbraco World logo" width="48" height="48"/> *@
-            @* <div>Umbraco World</div> *@
-            <lottie-player class="logo" src="assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
+            <lottie-player class="logo" src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,12 +47,12 @@
                 {
                     <li class="nav-item ">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle" src="assets/images/userPlaceholder.png" width="48" height="48"/>
+                            <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="48" height="48"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="dropdown-item-text">@currentMember?.Name</div>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">My account</a>
+                            <a class="dropdown-item" href="/account">My account</a>
 
                             @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = "/" }))
                             {

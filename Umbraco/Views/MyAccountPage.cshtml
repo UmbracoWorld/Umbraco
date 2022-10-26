@@ -1,6 +1,55 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.MyAccountPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Features.MyAccount.MyAccount>
 @using ContentModels = UmbracoWorld.PublishedModels;
+@using Umbraco.Cms.Core.Services
+@using Umbraco.Cms.Web.Common.Security
+@using Umbraco.Cms.Web.Website.Models
+
+@inject MemberModelBuilderFactory MemberModelBuilderFactory;
 @{
-	Layout = "./Layouts/_Layout.cshtml";
+    Layout = "./Layouts/_Layout.cshtml";
+
+    // Build a profile model to edit
+    var profileModel = await MemberModelBuilderFactory
+        .CreateProfileModel()
+        // If null or not set, this will redirect to the current page
+        .WithRedirectUrl(null)
+        // Include editable custom properties on the form
+        .WithCustomProperties(true)
+        .BuildForCurrentMemberAsync();
 }
+<div class="container pt-5">
+    <h1>My account</h1>
+    <div class="row ms-md-0">
+        <div class="col-12 col-md-3 mt-3 mt-md-0 p-md-5 ps-md-0">
+            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="text-start nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                    Profile
+                </button>
+                <button class="text-start nav-link" id="v-pills-external-providers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-external-providers" type="button" role="tab" aria-controls="v-pills-external-providers-tab" aria-selected="false">
+                    External Providers
+                </button>
+                <button class="text-start nav-link" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    Change Email
+                </button>
+                <button class="text-start nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                    Change Password
+                </button>
+            </div>
+        </div>
+        <div class="col-12 col-md-9 mt-5 mt-md-0 p-md-5 ">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ProfileForm.cshtml", Model.ProfileSettings)
+                </div>
+                <div class="tab-pane fade" id="v-pills-external-providers" role="tabpanel" aria-labelledby="v-pills-external-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ExternalProviders.cshtml", Model)
+                </div>
+
+                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-account-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ChangeEmailForm.cshtml", Model.EmailSettings)
+                </div>
+                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+            </div>
+        </div>
+    </div>
+</div>

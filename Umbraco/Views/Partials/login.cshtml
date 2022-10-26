@@ -66,8 +66,6 @@
             <span asp-validation-for="@loginModel.Username" class="form-text text-danger"></span>
             <div class="valid-feedback">👍 Looks good</div>
             <div class="invalid-feedback">Hmm… that email doesn't look valid</div>
-
-
         </div>
         <div class="form-group mb-3">
             <label asp-for="@loginModel.Password" class="form-label"></label>
@@ -93,24 +91,4 @@
             <a href="/register">Forgotten your password?</a>
         </div>
     }
-
-    <script>
-    (function () {
-      'use strict'
-      var forms = document.querySelectorAll('.needs-validation')
-    
-      // Loop over them and prevent submission
-      Array.prototype.slice.call(forms)
-        .forEach(function (form) {
-          form.addEventListener('submit', function (event) {
-            if (!form.checkValidity()) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-    
-            form.classList.add('was-validated')
-          }, false)
-        })
-    })()
-    </script>
 </div>
