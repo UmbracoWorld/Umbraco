@@ -1,10 +1,14 @@
 ﻿@using Umbraco.Cms.Web.Website.Controllers
 @using Umbraco.Cms.Core.Security
+@using UmbracoWorld.PublishedModels
 @inject IMemberManager memberManager
 
 @{
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
-    var currentMember = await memberManager.GetCurrentMemberAsync();
+    var loggedinMember = await memberManager.GetCurrentMemberAsync();
+    var currentMember = memberManager.AsPublishedMember(loggedinMember) as Member;
+    
+    
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -47,7 +51,7 @@
                 {
                     <li class="nav-item ">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="48" height="48"/>
+                            <img class="rounded-circle" src="@currentMember.ProfileImage.Src" width="64" height="64"/>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="dropdown-item-text">@currentMember?.Name</div>
