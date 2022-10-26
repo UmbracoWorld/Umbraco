@@ -9,15 +9,11 @@
 @{
     var loginModel = new LoginModel
     {
-        RedirectUrl = "/"
+        RedirectUrl = Context.Request.Path == "/login" ? "/" : Context.Request.Path
     };
     
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
 }
-
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> *@
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> *@
-@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script> *@
 
 <div class="login-form">
     @{
@@ -35,7 +31,8 @@
                 {
                     @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
                     {
-                        <input type="hidden" name="returnUrl" value="/"/>
+                        
+                        <input type="hidden" name="returnUrl" value="@loginModel.RedirectUrl"/>
                         <button class="btn btn-outline-primary" type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
                             <span><img src="assets/images/icons/github.png"/> Sign in with @login.AuthenticationScheme.DisplayName</span>
                         </button>
