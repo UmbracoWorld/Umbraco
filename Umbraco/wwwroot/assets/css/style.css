@@ -109,14 +109,14 @@ animations
     background: vaR(--bs-primary);
     backface-visibility: hidden;
     clip-path: polygon(0 0, 0 100%, 100% 100%, 0 100%);
-    animation: loadIn 1.25s 0.25s backwards cubic-bezier(0.19,1,0.22,1);
+    animation: loadIn 1.25s 0.3s backwards cubic-bezier(0.19,1,0.22,1);
 }
 
 @keyframes loadIn {
     from {
-        clip-path: circle(150vmax at 100% 100%);
+        clip-path: circle(150vmax at 50% 100%);
     }
     to {
-        clip-path: circle(0% at 100% 100%);
+        clip-path: circle(0% at 50% 100%);
     }
 }

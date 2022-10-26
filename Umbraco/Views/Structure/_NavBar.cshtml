@@ -5,13 +5,11 @@
 @{
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
     var currentMember = await memberManager.GetCurrentMemberAsync();
-    
+
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-
-
+    <div class="container">
         <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
             @* <img class="me-2" src="/assets/images/world.png" alt="Umbraco World logo" width="48" height="48"/> *@
             @* <div>Umbraco World</div> *@
@@ -21,7 +19,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
+            <ul class="navbar-nav ms-auto me-auto d-flex align-items-lg-center">
                 <li class="nav-item">
                     <a class="nav-link active" href="#">
                         Home
@@ -46,6 +44,8 @@
                         <a class="dropdown-item" href="#">How do I get involved?</a>
                     </div>
                 </li>
+            </ul>
+            <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
                 @if (isLoggedIn)
                 {
                     <li class="nav-item ">
@@ -68,7 +68,6 @@
                 {
                     <a href="/login" class="btn btn-primary">Login</a>
                 }
-
             </ul>
         </div>
     </div>

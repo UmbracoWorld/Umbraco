@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Common;
 using Umbraco.Common.Models;
 using Umbraco.Common.Services;
+using Umbraco.Notifications.NewMemberRegistered;
 
 namespace Umbraco.Features.MembersAuth.Github;
 
@@ -12,11 +14,13 @@ public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<M
 {
     public const string SchemeName = "GitHub";
     private readonly IToastNotificationService _toastNotificationService;
+    private readonly IEventAggregator _eventAggregator;
 
 
-    public GitHubMemberExternalLoginProviderOptions(IToastNotificationService toastNotificationService)
+    public GitHubMemberExternalLoginProviderOptions(IToastNotificationService toastNotificationService, IEventAggregator eventAggregator)
     {
         _toastNotificationService = toastNotificationService;
+        _eventAggregator = eventAggregator;
     }
 
     public void Configure(string name, MemberExternalLoginProviderOptions options)
@@ -56,9 +60,10 @@ public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<M
             // Optional callback
             OnAutoLinking = (autoLinkUser, loginInfo) =>
             {
-                // You can customize the member before it's linked.
-                // i.e. Modify the member's groups based on the Claims returned
-                // in the externalLogin info
+                
+                // publish a new notification so we can just deal with things there.
+                var notification = new NewMemberRegisteredNotification() { Username = autoLinkUser.UserName };
+                _eventAggregator.Publish(notification);
             },
             OnExternalLogin = (user, loginInfo) =>
             {
@@ -69,6 +74,7 @@ public class GitHubMemberExternalLoginProviderOptions : IConfigureNamedOptions<M
                 };
                 
                 _toastNotificationService.AddToast(toast);
+                
 
                 return true; //returns a boolean indicating if sign in should continue or not.
             }

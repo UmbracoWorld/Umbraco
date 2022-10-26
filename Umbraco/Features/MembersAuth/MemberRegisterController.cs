@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Umbraco.Cms.Core.Cache;
+using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Routing;
 using Umbraco.Cms.Core.Scoping;
@@ -10,6 +11,8 @@ using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
 using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Cms.Web.Website.Controllers;
+using Umbraco.Notifications;
+using Umbraco.Notifications.NewMemberRegistered;
 
 namespace Umbraco.Features.MembersAuth;
 
@@ -18,6 +21,8 @@ public class MemberRegisterController : SurfaceController
     private readonly IMemberManager _memberManager;
     private readonly IMemberSignInManager _memberSignInManager;
     private readonly ICoreScopeProvider _scopeProvider;
+    private readonly IEventAggregator _eventAggregator;
+
 
     public MemberRegisterController(IUmbracoContextAccessor umbracoContextAccessor,
         IUmbracoDatabaseFactory databaseFactory,
@@ -27,12 +32,13 @@ public class MemberRegisterController : SurfaceController
         IPublishedUrlProvider publishedUrlProvider,
         IMemberManager memberManager,
         IMemberSignInManager memberSignInManager,
-        ICoreScopeProvider scopeProvider)
+        ICoreScopeProvider scopeProvider, IEventAggregator eventAggregator)
         : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
     {
         _memberManager = memberManager;
         _memberSignInManager = memberSignInManager;
         _scopeProvider = scopeProvider;
+        _eventAggregator = eventAggregator;
     }
 
     [HttpPost]
@@ -88,6 +94,9 @@ public class MemberRegisterController : SurfaceController
         IdentityResult identityResult = await _memberManager.CreateAsync(identityUser, model.Password);
         if (identityResult.Succeeded)
         {
+            var newMemberNotification = new NewMemberRegisteredNotification { Username = identityUser.UserName };
+            await _eventAggregator.PublishAsync(newMemberNotification);
+            
             await _memberSignInManager.SignInAsync(identityUser, false);
         }
 
