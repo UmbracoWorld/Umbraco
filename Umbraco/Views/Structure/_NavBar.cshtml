@@ -11,7 +11,7 @@
     
 }
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
             <lottie-player class="logo" src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
@@ -51,7 +51,15 @@
                 {
                     <li class="nav-item ">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img class="rounded-circle" src="@currentMember.ProfileImage.Src" width="64" height="64"/>
+                            @if (currentMember?.ProfileImage is not null)
+                            {
+                                <img class="rounded-circle" src="@currentMember?.ProfileImage?.Src" width="32" height="32"/>
+                            }
+                            else
+                            {
+                                <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="32" height="32"/>
+                            }
+                            
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="dropdown-item-text">@currentMember?.Name</div>

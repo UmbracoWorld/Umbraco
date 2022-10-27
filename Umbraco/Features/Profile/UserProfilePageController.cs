@@ -44,10 +44,11 @@ public class UserProfilePageController : UmbracoPageController
         }
 
         // Probably want to not use member service here, maybe examine?
-        var allMembers = _memberService.GetAllMembers();
-
         var slugAlias = Member.GetModelPropertyType(_publishedSnapshotAccessor, m => m.Slug)?.Alias!;
-        var matchingMember = allMembers.FirstOrDefault(Predicate(slugAlias));
+        var allMembers = _memberService.GetMembersByPropertyValue(slugAlias, slug);
+        
+        // we should only have one matching member as we enforce the slugs
+        var matchingMember = allMembers?.FirstOrDefault();
         if (matchingMember is null)
             return View("/Views/UserProfilePage.cshtml");
 

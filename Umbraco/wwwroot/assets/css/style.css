@@ -24,8 +24,11 @@
 }
 
 /*Navigation*/
+.navbar-brand {
+    border: 0;
+}
 .navbar-brand .logo {
-    width: 250px;
+    width: 150px;
 }
 
 
@@ -112,12 +115,20 @@ animations
     animation: loadIn 1.25s 0.3s backwards cubic-bezier(0.19,1,0.22,1);
 }
 
+/*@keyframes loadIn {*/
+/*    from {*/
+/*        clip-path: circle(150vmax at 50% 100%);*/
+/*    }*/
+/*    to {*/
+/*        clip-path: circle(0% at 50% 100%);*/
+/*    }*/
+/*}*/
 @keyframes loadIn {
     from {
         clip-path: circle(150vmax at 50% 100%);
     }
     to {
-        clip-path: circle(0% at 50% 100%);
+        clip-path: circle(0% at 0% 0%);
     }
 }
 

@@ -13,6 +13,7 @@ using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Cms.Web.Website.Controllers;
 using Umbraco.Notifications;
 using Umbraco.Notifications.NewMemberRegistered;
+using UmbracoWorld.PublishedModels;
 
 namespace Umbraco.Features.MembersAuth;
 
@@ -50,19 +51,14 @@ public class MemberRegisterController : SurfaceController
             return CurrentUmbracoPage();
         }
 
-        IdentityResult result = await RegisterMemberAsync(model);
+        var result = await RegisterMemberAsync(model);
         if (result.Succeeded)
         {
-            TempData["FormSuccess"] = true;
+            var myAccountPage = UmbracoContext.Content?.GetAtRoot().First().FirstChild<MyAccountPage>();
+            TempData["RegisterFormSuccess"] = true;
 
-            // If there is a specified path to redirect to then use it.
-            if (!model.RedirectUrl.IsNullOrWhiteSpace())
-            {
-                return Redirect(model.RedirectUrl!);
-            }
-
-            // Redirect to current page by default.
-            return RedirectToCurrentUmbracoPage();
+            if (myAccountPage != null) 
+                return RedirectToUmbracoPage(myAccountPage);
         }
 
         AddErrors(result);

@@ -73,6 +73,7 @@ public class MyAccountSurfaceController : SurfaceController
         currentMember.SetValue(GetMemberPropertyAlias(member => member.CompanyName!), profileSettings.CompanyName);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.Bio!), profileSettings.AboutMe);
         currentMember.SetValue(GetMemberPropertyAlias(member => member.PersonalSocialLink!), profileSettings.Website);
+        currentMember.Name = profileSettings.DisplayName;
 
         var showEmailOnProfileAlias =
             Member.GetModelPropertyType(_publishedSnapshotAccessor, member => member.ShowEmailOnProfile)?.Alias;

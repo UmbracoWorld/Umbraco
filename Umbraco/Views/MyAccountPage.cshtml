@@ -18,6 +18,15 @@
         .BuildForCurrentMemberAsync();
 }
 <div class="container pt-5">
+    @if (TempData["RegisterFormSuccess"] is not null)
+    {
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                Hello, @Model.ProfileSettings.DisplayName!
+            </div>
+            <p>Thanks for joining Umbraco World, here you can update your public profile and other account settings.</p>
+        </div>
+    }
     <h1>My account</h1>
     <div class="row ms-md-0">
         <div class="col-12 col-md-3 mt-3 mt-md-0 p-md-5 ps-md-0">

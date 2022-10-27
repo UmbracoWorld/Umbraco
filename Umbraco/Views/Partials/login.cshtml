@@ -34,7 +34,7 @@
                         
                         <input type="hidden" name="returnUrl" value="@loginModel.RedirectUrl"/>
                         <button class="btn btn-outline-primary" type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
-                            <span><img src="assets/images/icons/github.png"/> Sign in with @login.AuthenticationScheme.DisplayName</span>
+                            <span><img src="/assets/images/icons/@(login.AuthenticationScheme.DisplayName).png"/> Sign in with @login.AuthenticationScheme.DisplayName</span>
                         </button>
 
                         if (externalSignInError?.AuthenticationType == login.ExternalLoginProvider.AuthenticationType)
