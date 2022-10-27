@@ -46,6 +46,7 @@ namespace UmbracoWorld
 
             services.AddSingleton<ITempDataService, TempDataService>();
             services.AddSingleton<IToastNotificationService, ToastNotificationService>();
+            services.AddSingleton<IMediaUploadService, MediaUploadService>();
         }
 
         /// <summary>

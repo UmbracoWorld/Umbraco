@@ -7,7 +7,8 @@ namespace Umbraco.Notifications.NewMemberRegistered;
 /// </summary>
 public class NewMemberRegisteredNotification : INotification
 {
-    public int MemberId { get; set; }
     public string Username { get; set; }
+    public string DisplayName { get; set; }
+    public string ProviderName { get; set; }
 }
 

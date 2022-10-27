@@ -10,7 +10,7 @@ public class MyAccount
 {
     public ChangeEmail EmailSettings { get; set; }
     public ProfileSettings ProfileSettings { get; set; }
-    public ImageCropperValue? ProfilePicture { get; set; }
+    public MediaWithCrops? ProfilePicture { get; set; }
     public bool IsApproved { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime? LastLoginDate { get; set; }

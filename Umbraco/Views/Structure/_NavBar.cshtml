@@ -1,5 +1,6 @@
 ﻿@using Umbraco.Cms.Web.Website.Controllers
 @using Umbraco.Cms.Core.Security
+@using Umbraco.Common.Constants
 @using UmbracoWorld.PublishedModels
 @inject IMemberManager memberManager
 
@@ -53,7 +54,7 @@
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             @if (currentMember?.ProfileImage is not null)
                             {
-                                <img class="rounded-circle" src="@currentMember?.ProfileImage?.Src" width="32" height="32"/>
+                                <img class="rounded-circle" src="@currentMember?.ProfileImage.GetCropUrl(ImageCropConstants.Square300)" width="32" height="32"/>
                             }
                             else
                             {

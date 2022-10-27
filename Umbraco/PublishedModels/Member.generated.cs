@@ -177,7 +177,7 @@ namespace UmbracoWorld.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "10.1.0+3972538")]
 		[global::System.Diagnostics.CodeAnalysis.MaybeNull]
 		[ImplementPropertyType("profileImage")]
-		public virtual global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue ProfileImage => this.Value<global::Umbraco.Cms.Core.PropertyEditors.ValueConverters.ImageCropperValue>(_publishedValueFallback, "profileImage");
+		public virtual global::Umbraco.Cms.Core.Models.MediaWithCrops ProfileImage => this.Value<global::Umbraco.Cms.Core.Models.MediaWithCrops>(_publishedValueFallback, "profileImage");
 
 		///<summary>
 		/// Show email on profile?: Whether to show the member's email on their public profile
