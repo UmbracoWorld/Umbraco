@@ -1,4 +1,5 @@
-﻿@using Umbraco.Cms.Web.Website.Controllers
+﻿@inherits UmbracoViewPage<IEnumerable<Umbraco.Cms.Core.Models.Link>>
+@using Umbraco.Cms.Web.Website.Controllers
 @using Umbraco.Cms.Core.Security
 @using Umbraco.Common.Constants
 @using UmbracoWorld.PublishedModels
@@ -8,11 +9,9 @@
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
     var loggedinMember = await memberManager.GetCurrentMemberAsync();
     var currentMember = memberManager.AsPublishedMember(loggedinMember) as Member;
-    
-    
 }
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
             <lottie-player class="logo" src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
@@ -22,30 +21,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav ms-auto me-auto d-flex align-items-lg-center">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        Home
-                        <span class="visually-hidden">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Showcases</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Resources</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Events</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                    <div class="dropdown-menu dropdown-menu-start">
-                        <a class="dropdown-item" href="#">What is Umbraco World?</a>
-                        <a class="dropdown-item" href="#">Friends of Umbraco world</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">How do I get involved?</a>
-                    </div>
-                </li>
+                @foreach (var link in Model)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(Umbraco.AssignedContentItem.Url() == link.Url ? "active" : "")" title="@link.Name" target="@link.Target" href="@link.Url">@link.Name</a>
+                    </li>
+                }
             </ul>
             <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
                 @if (isLoggedIn)
@@ -60,7 +41,7 @@
                             {
                                 <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="32" height="32"/>
                             }
-                            
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <div class="dropdown-item-text">@currentMember?.Name</div>

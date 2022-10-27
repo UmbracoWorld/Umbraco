@@ -1,6 +1,5 @@
-﻿using Umbraco.Cms.Core.Models;
+﻿using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Security;
-using Umbraco.Common.Constants;
 using Member = UmbracoWorld.PublishedModels.Member;
 
 namespace Umbraco.Features.MyAccount;
@@ -14,17 +13,17 @@ public class MyAccountPageService : IMyAccountPageService
         _memberManager = memberManager;
     }
 
-    public async Task<MyAccount> GetInitialViewModelAsync()
+    public async Task<MyAccount> GetInitialViewModelAsync(IPublishedContent? currentPage)
     {
         var memberIdentityUser = await _memberManager.GetCurrentMemberAsync();
         if (memberIdentityUser == null)
         {
-            return new MyAccount();
+            return new MyAccount(currentPage);
         }
 
         var publishedContent = _memberManager.AsPublishedMember(memberIdentityUser);
         if (publishedContent is not Member currentMember)
-            return new MyAccount();
+            return new MyAccount(currentPage);
 
         var changeEmail = new ChangeEmail
         {
@@ -34,7 +33,7 @@ public class MyAccountPageService : IMyAccountPageService
 
         var profileSettings = new ProfileSettings(currentMember);
 
-        var viewModel = new MyAccount
+        var viewModel = new MyAccount (currentPage)
         {
             ProfileSettings = profileSettings,
             EmailSettings = changeEmail,

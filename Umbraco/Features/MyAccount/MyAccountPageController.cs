@@ -19,7 +19,7 @@ public class MyAccountPageController : RenderController
     
     public async Task<IActionResult> MyAccountPage()
     {
-        var viewModel = await _myAccountPageService.GetInitialViewModelAsync();
+        var viewModel = await _myAccountPageService.GetInitialViewModelAsync(CurrentPage);
         
         return CurrentTemplate(viewModel);
     }

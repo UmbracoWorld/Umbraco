@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors.ValueConverters;
 using Member = UmbracoWorld.PublishedModels.Member;
 
 namespace Umbraco.Features.MyAccount;
 
-public class MyAccount
+public class MyAccount : ContentModel
 {
     public ChangeEmail EmailSettings { get; set; }
     public ProfileSettings ProfileSettings { get; set; }
@@ -16,6 +17,10 @@ public class MyAccount
     public DateTime? LastLoginDate { get; set; }
     public DateTime? LastPasswordChangedDate { get; set; }
     public Guid Key { get; set; }
+
+    public MyAccount(IPublishedContent content) : base(content)
+    {
+    }
 }
 
 public class ChangeEmail
