@@ -41,9 +41,6 @@
   <Folder Include="wwwroot\assets\images\icons" />
 </ItemGroup>
 <ItemGroup>
-  <None Include="wwwroot\assets\css\overrides.css" />
-</ItemGroup>
-<ItemGroup>
   <_ContentIncludedByDefault Remove="Views\Shared\Components\Default.cshtml" />
 </ItemGroup>
 
