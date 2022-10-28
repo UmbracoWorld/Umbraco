@@ -1,7 +1,7 @@
 ﻿@model Umbraco.Common.Models.ToastModel
 
-<div id="toast" aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-    <div class="toast" style="position: absolute; top: 0; right: 0;">
+<div  id="toast" aria-live="polite" aria-atomic="true" style="min-height: 200px;">
+    <div class="toast position-absolute p-3"style="top: 120px; right: 0;">
         @if (!string.IsNullOrEmpty(Model.Title))
         {
             <div class="toast-header">

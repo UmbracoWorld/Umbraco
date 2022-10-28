@@ -20,4 +20,4 @@ function fn() {
     window.addEventListener("scroll", refreshNavbar, {passive: true});
 
     refreshNavbar();
-}  
+}   
