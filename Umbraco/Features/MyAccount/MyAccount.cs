@@ -10,6 +10,7 @@ namespace Umbraco.Features.MyAccount;
 public class MyAccount : ContentModel
 {
     public ChangeEmail EmailSettings { get; set; }
+    public ChangePassword ChangePassword { get; set; }
     public ProfileSettings ProfileSettings { get; set; }
     public MediaWithCrops? ProfilePicture { get; set; }
     public bool IsApproved { get; set; }
@@ -22,7 +23,21 @@ public class MyAccount : ContentModel
     {
     }
 }
-
+public class ChangePassword
+{
+    [Required]
+    [Display(Name="What is your current password?")]
+    public string CurrentPassword { get; set; }
+    
+    [Required]
+    [Display(Name = "What would you like your new password to be?")]
+    public string Password { get; set; }
+    
+    [Required]
+    [Display(Name = "Confirm your new password")]
+    [Compare(nameof(Password))]
+    public string ConfirmPassword { get; set; }
+}
 public class ChangeEmail
 {
     public Guid Key { get; set; }

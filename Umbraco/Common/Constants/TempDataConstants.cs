@@ -11,4 +11,9 @@ public static class TempDataConstants
     /// Used to indicate a user has changed their username with success
     /// </summary>
     public const string UsernameChangedSuccess = "userNameChangedSuccess";
+
+    /// <summary>
+    /// Used to re-set the tabs with JS
+    /// </summary>
+    public const string CurrentTab = "CurrentTab";
 }

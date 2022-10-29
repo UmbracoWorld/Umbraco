@@ -54,6 +54,32 @@ public class MyAccountSurfaceController : SurfaceController
         }
     }
 
+    public async Task<IActionResult> HandleChangePassword(ChangePassword changePassword)
+    {
+        if (!ModelState.IsValid)
+        {
+            return CurrentUmbracoPage();
+        }
+        
+        var currentMember = await _memberManager.GetUserAsync(HttpContext.User);
+        if (currentMember == null!)
+        {
+            return RedirectToCurrentUmbracoPage();
+        }
+
+        var result =await _memberManager.ChangePasswordAsync(currentMember, changePassword.CurrentPassword, changePassword.ConfirmPassword);
+
+        if (result.Succeeded)
+        {
+            return RedirectToCurrentUmbracoPage();
+        }
+
+       
+        AddErrors(result, nameof(HandleChangePassword));
+        TempData[TempDataConstants.CurrentTab] = "changepassword";
+        return CurrentUmbracoPage();
+    }
+
     public async Task<IActionResult> HandleUpdateProfileSettings(ProfileSettings profileSettings)
     {
         if (!ModelState.IsValid)

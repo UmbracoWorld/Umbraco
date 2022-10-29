@@ -3,6 +3,7 @@
 @using Umbraco.Cms.Core.Services
 @using Umbraco.Cms.Web.Common.Security
 @using Umbraco.Cms.Web.Website.Models
+@using Umbraco.Common.Constants
 
 @inject MemberModelBuilderFactory MemberModelBuilderFactory;
 @{
@@ -31,16 +32,16 @@
     <div class="row ms-md-0">
         <div class="col-12 col-md-3 mt-3 mt-md-0 p-md-5 ps-md-0">
             <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <button class="text-start nav-link active" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                <button class="text-start nav-link active" id="profile" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
                     Profile
                 </button>
-                <button class="text-start nav-link" id="v-pills-external-providers-tab" data-bs-toggle="pill" data-bs-target="#v-pills-external-providers" type="button" role="tab" aria-controls="v-pills-external-providers-tab" aria-selected="false">
+                <button class="text-start nav-link" id="externalproviders" data-bs-toggle="pill" data-bs-target="#external-providers-content" type="button" role="tab" aria-controls="v-pills-external-providers-tab" aria-selected="false">
                     External Providers
                 </button>
-                <button class="text-start nav-link" id="v-pills-account-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                <button class="text-start nav-link" id="changeemail" data-bs-toggle="pill" data-bs-target="#changeemail-content" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                     Change Email
                 </button>
-                <button class="text-start nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                <button class="text-start nav-link" id="changepassword" data-bs-toggle="pill" data-bs-target="#changepassword-content" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
                     Change Password
                 </button>
             </div>
@@ -50,15 +51,19 @@
                 <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
                     @await Html.PartialAsync("Partials/MyAccount/_ProfileForm.cshtml", Model.ProfileSettings)
                 </div>
-                <div class="tab-pane fade" id="v-pills-external-providers" role="tabpanel" aria-labelledby="v-pills-external-tab" tabindex="0">
+                <div class="tab-pane fade" id="external-providers-content" role="tabpanel" aria-labelledby="v-pills-external-tab" tabindex="0">
                     @await Html.PartialAsync("Partials/MyAccount/_ExternalProviders.cshtml", Model)
                 </div>
 
-                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-account-tab" tabindex="0">
+                <div class="tab-pane fade" id="changeemail-content" role="tabpanel" aria-labelledby="v-pills-account-tab" tabindex="0">
                     @await Html.PartialAsync("Partials/MyAccount/_ChangeEmailForm.cshtml", Model.EmailSettings)
                 </div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">...</div>
+                <div class="tab-pane fade" id="changepassword-content" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ChangePasswordForm.cshtml", Model.ChangePassword)
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<input id="@TempDataConstants.CurrentTab" type="hidden" value="@TempData[TempDataConstants.CurrentTab]" />
