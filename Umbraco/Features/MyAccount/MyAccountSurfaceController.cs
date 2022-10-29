@@ -11,7 +11,9 @@ using Umbraco.Cms.Core.Security;
 using Umbraco.Cms.Core.Services;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Infrastructure.Persistence;
+using Umbraco.Cms.Web.Common.Security;
 using Umbraco.Cms.Web.Website.Controllers;
+using Umbraco.Common.Constants;
 using Member = UmbracoWorld.PublishedModels.Member;
 
 namespace Umbraco.Features.MyAccount;
@@ -21,6 +23,7 @@ public class MyAccountSurfaceController : SurfaceController
     private readonly IMemberManager _memberManager;
     private readonly IMemberService _memberService;
     private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
+    private readonly IMemberSignInManager _memberSignInManager;
 
     public MyAccountSurfaceController(IUmbracoContextAccessor umbracoContextAccessor,
         IUmbracoDatabaseFactory databaseFactory,
@@ -28,12 +31,13 @@ public class MyAccountSurfaceController : SurfaceController
         AppCaches appCaches,
         IProfilingLogger profilingLogger,
         IPublishedUrlProvider publishedUrlProvider,
-        IMemberManager memberManager, IMemberService memberService, IPublishedSnapshotAccessor publishedSnapshotAccessor)
+        IMemberManager memberManager, IMemberService memberService, IPublishedSnapshotAccessor publishedSnapshotAccessor, IMemberSignInManager memberSignInManager)
         : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
     {
         _memberManager = memberManager;
         _memberService = memberService;
         _publishedSnapshotAccessor = publishedSnapshotAccessor;
+        _memberSignInManager = memberSignInManager;
     }
 
     public string GetMemberPropertyAlias(Expression<Func<Member, dynamic>> expression)
@@ -106,6 +110,8 @@ public class MyAccountSurfaceController : SurfaceController
 
         if (result.Succeeded)
         {
+            TempData[TempDataConstants.UsernameChangedSuccess] = true;
+            await _memberSignInManager.SignOutAsync();
             return RedirectToCurrentUmbracoPage();
         }
 

@@ -6,4 +6,9 @@ public static class TempDataConstants
     /// Used to display toast messages
     /// </summary>
     public const string ToastKey = "toast";
+
+    /// <summary>
+    /// Used to indicate a user has changed their username with success
+    /// </summary>
+    public const string UsernameChangedSuccess = "userNameChangedSuccess";
 }

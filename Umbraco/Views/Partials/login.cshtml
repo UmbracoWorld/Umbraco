@@ -2,6 +2,7 @@
 
 @using Umbraco.Cms.Web.Common.Security
 @using Umbraco.Cms.Web.Website.Controllers
+@using Umbraco.Common.Constants
 @using Umbraco.Features.MembersAuth
 @using LoginModel = Umbraco.Features.MembersAuth.LoginModel
 @inject IMemberExternalLoginProviders memberExternalLoginProviders
@@ -11,7 +12,7 @@
     {
         RedirectUrl = Context.Request.Path == "/login" ? "/" : Context.Request.Path
     };
-    
+
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
 }
 
@@ -31,7 +32,6 @@
                 {
                     @using (Html.BeginUmbracoForm<UmbExternalLoginController>(nameof(UmbExternalLoginController.ExternalLogin)))
                     {
-                        
                         <input type="hidden" name="returnUrl" value="@loginModel.RedirectUrl"/>
                         <button class="btn btn-outline-primary" type="submit" name="provider" value="@login.ExternalLoginProvider.AuthenticationType">
                             <span><img src="/assets/images/icons/@(login.AuthenticationScheme.DisplayName).png"/> Sign in with @login.AuthenticationScheme.DisplayName</span>
@@ -50,12 +50,19 @@
     @using (Html.BeginUmbracoForm<MemberLoginController>("HandleLogin", new
     {
         RedirectUrl = loginModel.RedirectUrl
-    }, htmlAttributes: new { @novalidate = "true", @class="needs-validation"}))
+    }, htmlAttributes: new { @novalidate = "true", @class = "needs-validation" }))
     {
         @if (ViewData.ModelState.ContainsKey("loginModel"))
         {
             <div class="alert alert-danger">
                 @Html.ValidationMessage("loginModel")
+            </div>
+        }
+
+        @if (TempData.ContainsKey(TempDataConstants.UsernameChangedSuccess))
+        {
+            <div class="alert alert-success">
+                Your email has been updated - log in with your new email.
             </div>
         }
 
@@ -74,14 +81,14 @@
             <div class="valid-feedback">👍 Looks good</div>
             <div class="invalid-feedback">Your password can't be empty!</div>
         </div>
-        
+
         <div class="form-check mb-3">
             <input asp-for="@loginModel.RememberMe" class="form-check-input">
             <label asp-for="@loginModel.RememberMe" class="form-check-label">
                 @Html.DisplayNameFor(m => loginModel.RememberMe)
             </label>
         </div>
-        
+
         <button type="submit" class="btn btn-primary">log in</button>
 
 
