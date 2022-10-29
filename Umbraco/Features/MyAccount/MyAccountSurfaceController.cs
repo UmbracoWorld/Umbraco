@@ -91,6 +91,8 @@ public class MyAccountSurfaceController : SurfaceController
 
     public async Task<IActionResult> HandleUpdateAccountSettings(ChangeEmail accountSettings)
     {
+        // TODO: We should probably validate this email, maybe lock out the member until they do?
+        
         if (!ModelState.IsValid)
         {
             return CurrentUmbracoPage();
