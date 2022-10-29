@@ -10,5 +10,7 @@ public class UserProfile : ContentModel
     {
         Member = member;
     }
-    public Member Member { get; set; }
+    
+    public UserProfile(IPublishedContent? content) : base(content) { }
+    public Member? Member { get; set; }
 }

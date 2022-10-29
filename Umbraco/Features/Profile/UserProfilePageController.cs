@@ -30,11 +30,6 @@ public class UserProfilePageController : UmbracoPageController
     
     public async Task<IActionResult> Index(string slug)
     {
-        Func<IMember, bool> Predicate(string slugAlias)
-        {
-            return x => x.GetValue<string>(slugAlias)!.Equals(slug, StringComparison.OrdinalIgnoreCase);
-        }
-
         // Probably want to not use member service here, maybe examine?
         var slugAlias = Member.GetModelPropertyType(_publishedSnapshotAccessor, m => m.Slug)?.Alias!;
         var allMembers = _memberService.GetMembersByPropertyValue(slugAlias, slug);
@@ -42,11 +37,11 @@ public class UserProfilePageController : UmbracoPageController
         // we should only have one matching member as we enforce the slugs
         var matchingMember = allMembers?.FirstOrDefault();
         if (matchingMember is null)
-            return View("/Views/UserProfilePage.cshtml");
+            return View("/Views/UserProfilePage.cshtml", new UserProfile(CurrentPage));
 
 
         if (_memberManager.AsPublishedMember(await _memberManager.FindByEmailAsync(matchingMember.Email)) is not Member member) 
-            return View("/Views/UserProfilePage.cshtml");
+            return View("/Views/UserProfilePage.cshtml", new UserProfile(CurrentPage));
         
         var userProfile = new UserProfile(CurrentPage, member)
         {

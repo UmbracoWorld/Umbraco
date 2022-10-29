@@ -1,4 +1,4 @@
-﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Features.Profile.UserProfile?>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Features.Profile.UserProfile>
 @using ContentModels = UmbracoWorld.PublishedModels;
 @using Umbraco.Common.Constants
 @using Lucene.Net.Analysis.Standard
@@ -8,13 +8,20 @@
 
 @section meta
 {
-    <meta property="og:image" content="@Url.GetCropUrl(Model?.Member.ProfileImage, ImageCropConstants.Square300, urlMode: UrlMode.Absolute)"/>
+    <meta property="og:image" content="@Url.GetCropUrl(Model.Member?.ProfileImage, ImageCropConstants.Square300, urlMode: UrlMode.Absolute)"/>
 }
 
 <div class="container">
-    @if (Model is null)
+    @if (Model.Member is null)
     {
-        <h1>User not found</h1>
+        <div class="d-flex flex-column align-items-center vh-100 justify-content-center gap-3">
+            <span>
+                <i class="fs-1 text-primary bi bi-binoculars-fill"></i>
+            </span>
+            <h1>User not found</h1>
+            <p class="lead">Did you make a typo in the url?</p>
+        </div>
+        
     }
     else
     {
