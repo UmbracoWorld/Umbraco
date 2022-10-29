@@ -2,6 +2,7 @@
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
+using Umbraco.Features.Emails;
 using Umbraco.Features.MyAccount;
 using Umbraco.Features.Profile;
 using UmbracoWorld.PublishedModels;
@@ -16,6 +17,7 @@ public static class DependencyInjection
     public static IUmbracoBuilder AddFeatureServices(this IUmbracoBuilder builder)
     {
         builder.Services.AddScoped<IMyAccountPageService, MyAccountPageService>();
+        builder.Services.AddSingleton<IEmailSenderService, EmailSenderService>();
 
         builder.Services.Configure<UmbracoPipelineOptions>(options =>
         {

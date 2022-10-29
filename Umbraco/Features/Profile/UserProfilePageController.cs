@@ -12,14 +12,6 @@ using Member = UmbracoWorld.PublishedModels.Member;
 
 namespace Umbraco.Features.Profile;
 
-public class UserProfile : ContentModel
-{
-    public UserProfile(IPublishedContent? content) : base(content)
-    {
-    }
-    public Member Member { get; set; }
-}
-
 public class UserProfilePageController : UmbracoPageController
 {
     private readonly IUmbracoContextAccessor _umbracoContextAccessor;
@@ -56,7 +48,7 @@ public class UserProfilePageController : UmbracoPageController
         if (_memberManager.AsPublishedMember(await _memberManager.FindByEmailAsync(matchingMember.Email)) is not Member member) 
             return View("/Views/UserProfilePage.cshtml");
         
-        var userProfile = new UserProfile(CurrentPage)
+        var userProfile = new UserProfile(CurrentPage, member)
         {
             Member = member
         };
