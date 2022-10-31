@@ -25,16 +25,27 @@ public class MyAccount : ContentModel
 }
 public class ChangePassword
 {
+    public ChangePassword(bool hasLocalLogin = true)
+    {
+        HasLocalLogin = hasLocalLogin;
+    }
+
+    public ChangePassword()
+    {
+    }
+    
+    public bool HasLocalLogin { get; set; }
+    
     [Required]
-    [Display(Name="What is your current password?")]
+    [Display(Name="Current Password")]
     public string CurrentPassword { get; set; }
     
     [Required]
-    [Display(Name = "What would you like your new password to be?")]
+    [Display(Name = "New password")]
     public string Password { get; set; }
     
     [Required]
-    [Display(Name = "Confirm your new password")]
+    [Display(Name = "Confirm new password")]
     [Compare(nameof(Password))]
     public string ConfirmPassword { get; set; }
 }

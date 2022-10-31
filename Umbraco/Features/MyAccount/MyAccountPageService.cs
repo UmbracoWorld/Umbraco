@@ -14,12 +14,10 @@ public class MyAccountPageService : IMyAccountPageService
     }
 
     public async Task<MyAccount> GetInitialViewModelAsync(IPublishedContent? currentPage)
-    {
+        {
         var memberIdentityUser = await _memberManager.GetCurrentMemberAsync();
         if (memberIdentityUser == null)
-        {
             return new MyAccount(currentPage);
-        }
 
         var publishedContent = _memberManager.AsPublishedMember(memberIdentityUser);
         if (publishedContent is not Member currentMember)
@@ -33,8 +31,10 @@ public class MyAccountPageService : IMyAccountPageService
 
         var profileSettings = new ProfileSettings(currentMember);
 
-        var viewModel = new MyAccount (currentPage)
+        var memberHasLocalLogin = memberIdentityUser.PasswordHash is not null;
+        var viewModel = new MyAccount(currentPage)
         {
+            ChangePassword = new ChangePassword(memberHasLocalLogin),
             ProfileSettings = profileSettings,
             EmailSettings = changeEmail,
             ProfilePicture = currentMember.ProfileImage,

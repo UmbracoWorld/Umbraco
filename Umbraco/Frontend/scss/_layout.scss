@@ -1,4 +1,9 @@
-﻿.container {
+﻿.break {
+  margin-left:-100%;
+  margin-right:-100%;
+}
+
+.container {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   width: 100%;

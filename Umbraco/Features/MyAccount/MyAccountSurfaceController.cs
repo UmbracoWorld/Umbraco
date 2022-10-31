@@ -66,7 +66,6 @@ public class MyAccountSurfaceController : SurfaceController
         {
             return RedirectToCurrentUmbracoPage();
         }
-
         var result =await _memberManager.ChangePasswordAsync(currentMember, changePassword.CurrentPassword, changePassword.ConfirmPassword);
 
         if (result.Succeeded)
