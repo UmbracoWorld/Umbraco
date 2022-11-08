@@ -1,0 +1,35 @@
+﻿@model Umbraco.Common.Models.ToastModel
+
+<div  id="toast" aria-live="polite" aria-atomic="true" style="min-height: 200px;">
+    <div class="toast position-absolute p-3"style="top: 120px; right: 0;">
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <div class="toast-header">
+                <strong class="mr-auto">@Model.Title</strong>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        }
+        <div class="toast-body">
+            @Model.Message
+        </div>
+        @* Show the close button in body if not title *@
+        @if (string.IsNullOrEmpty(Model.Title))
+        {
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        }
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+    // Your code to run since DOM is loaded and ready
+
+     var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+     var toastList = toastElList.map(function (toastEl) {
+       return new bootstrap.Toast(toastEl)
+     })
+     
+     toastList.forEach(toast => toast.show());
+      
+     });
+</script>

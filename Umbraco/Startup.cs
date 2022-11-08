@@ -1,4 +1,10 @@
-namespace UmbDock
+using Umbraco.Common;
+using Umbraco.Common.Services;
+using Umbraco.Features;
+using Umbraco.Features.MembersAuth.Github;
+using Umbraco.Notifications;
+
+namespace UmbracoWorld
 {
     public class Startup
     {
@@ -33,7 +39,14 @@ namespace UmbDock
                 .AddBackOffice()
                 .AddWebsite()
                 .AddComposers()
+                .AddGitHubMemberAuthentication()
+                .AddCustomNotifications()
+                .AddFeatureServices()
                 .Build();
+
+            services.AddSingleton<ITempDataService, TempDataService>();
+            services.AddSingleton<IToastNotificationService, ToastNotificationService>();
+            services.AddSingleton<IMediaUploadService, MediaUploadService>();
         }
 
         /// <summary>
@@ -48,14 +61,18 @@ namespace UmbDock
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseUmbraco()
                 .WithMiddleware(u =>
                 {
+                    
                     u.UseBackOffice();
                     u.UseWebsite();
                 })
                 .WithEndpoints(u =>
                 {
+                    u.EndpointRouteBuilder.MapControllers();
                     u.UseInstallerEndpoints();
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();

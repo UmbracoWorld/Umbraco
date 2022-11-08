@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Features.MyAccount.MyAccount>
+@using ContentModels = UmbracoWorld.PublishedModels;
+@using Umbraco.Cms.Core.Services
+@using Umbraco.Cms.Web.Common.Security
+@using Umbraco.Cms.Web.Website.Models
+@using Umbraco.Common.Constants
+
+@inject MemberModelBuilderFactory MemberModelBuilderFactory;
+@{
+    Layout = "./Layouts/_Layout.cshtml";
+
+    // Build a profile model to edit
+    var profileModel = await MemberModelBuilderFactory
+        .CreateProfileModel()
+        // If null or not set, this will redirect to the current page
+        .WithRedirectUrl(null)
+        // Include editable custom properties on the form
+        .WithCustomProperties(true)
+        .BuildForCurrentMemberAsync();
+}
+<div class="container pt-5">
+    @if (TempData["RegisterFormSuccess"] is not null)
+    {
+        <div class="alert alert-success">
+            <div class="alert-heading">
+                Hello, @Model.ProfileSettings.DisplayName!
+            </div>
+            <p>Thanks for joining Umbraco World, here you can update your public profile and other account settings.</p>
+        </div>
+    }
+    <h1>My account</h1>
+    <div class="row ms-md-0">
+        <div class="col-12 col-md-3 mt-3 mt-md-0 p-md-5 ps-md-0">
+            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <button class="text-start nav-link active" id="profile" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                    Profile
+                </button>
+                <button class="text-start nav-link" id="externalproviders" data-bs-toggle="pill" data-bs-target="#external-providers-content" type="button" role="tab" aria-controls="v-pills-external-providers-tab" aria-selected="false">
+                    External Providers
+                </button>
+                <button class="text-start nav-link" id="changeemail" data-bs-toggle="pill" data-bs-target="#changeemail-content" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    Change Email
+                </button>
+                <button class="text-start nav-link" id="changepassword" data-bs-toggle="pill" data-bs-target="#changepassword-content" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                    Change Password
+                </button>
+            </div>
+        </div>
+        <div class="col-12 col-md-9 mt-5 mt-md-0 p-md-5 ">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ProfileForm.cshtml", Model.ProfileSettings)
+                </div>
+                <div class="tab-pane fade" id="external-providers-content" role="tabpanel" aria-labelledby="v-pills-external-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ExternalProviders.cshtml", Model)
+                </div>
+
+                <div class="tab-pane fade" id="changeemail-content" role="tabpanel" aria-labelledby="v-pills-account-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ChangeEmailForm.cshtml", Model.EmailSettings)
+                </div>
+                <div class="tab-pane fade" id="changepassword-content" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabindex="0">
+                    @await Html.PartialAsync("Partials/MyAccount/_ChangePasswordForm.cshtml", Model.ChangePassword)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="@TempDataConstants.CurrentTab" type="hidden" value="@TempData[TempDataConstants.CurrentTab]"/>

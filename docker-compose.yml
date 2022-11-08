@@ -1,8 +1,19 @@
 version: "3"
 
 services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        
   db:
-    image: mcr.microsoft.com/mssql/server
+    container_name: dbServer
+    build: ./UmbracoData
     restart: always
     environment:
       SA_PASSWORD: "ComplexPassword123!"
@@ -11,13 +22,28 @@ services:
       - "1400:1433"
     volumes:
       - database:/var/opt/mssql
-    
+  
   umbraco:
+    container_name: web
     build: ./Umbraco
+    volumes:
+      - media:/app/wwwroot/media
+      - logs:/app/umbraco/Logs
+      - ./Umbraco/appsettings.json:/app/appsettings.json
+      - ./Umbraco/Views:/app/Views
     ports:
       - "8000:80"
     depends_on:
       - db
+  
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - "1025:1025"
+      - "8025:8025"
 
 volumes:
   database:
+  media:
+  logs:

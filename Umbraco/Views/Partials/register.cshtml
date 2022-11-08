@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@using Umbraco.Cms.Web.Website.Models
+@using Umbraco.Features.MembersAuth
+
+@{
+    var registerModel = new RegisterModel();
+
+}
+
+@using (Html.BeginUmbracoForm<MemberRegisterController>("HandleRegisterMember"))
+{
+    <h2>Create your Umbraco World account!</h2>
+    <hr/>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="@registerModel.Name" class="form-label">Display Name</label>
+        <input asp-for="@registerModel.Name" class="form-control" aria-required="true"/>
+        <span asp-validation-for="@registerModel.Name" class="form-text text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@registerModel.Email" class="form-label"></label>
+        <input asp-for="@registerModel.Email" class="form-control" autocomplete="username" aria-required="true"/>
+        <span asp-validation-for="@registerModel.Email" class="form-text text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@registerModel.Password" class="form-label"></label>
+        <input asp-for="@registerModel.Password" class="form-control" autocomplete="new-password" aria-required="true"/>
+        <span asp-validation-for="@registerModel.Password" class="form-text text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="@registerModel.ConfirmPassword" class="form-label"></label>
+        <input asp-for="@registerModel.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true"/>
+        <span asp-validation-for="@registerModel.ConfirmPassword" class="form-text text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create my account</button>
+}

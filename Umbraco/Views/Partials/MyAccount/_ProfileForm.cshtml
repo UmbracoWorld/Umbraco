@@ -1,0 +1,111 @@
+﻿@using Umbraco.Features.MyAccount
+@model Umbraco.Features.MyAccount.ProfileSettings
+
+@{
+    const string methodSignatureName = nameof(MyAccountSurfaceController.HandleUpdateProfileSettings);
+}
+<h2>Profile Settings</h2>
+
+@using (Html.BeginUmbracoForm<MyAccountSurfaceController>(methodSignatureName, new { }, new
+{
+    novalidate = "true", @class = "needs-validation pt-3 pb-3"
+}))
+{
+    @if (ViewData.ModelState.ContainsKey(methodSignatureName))
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationMessage(methodSignatureName)
+        </div>
+    }
+
+    <div class="form-group col-8 col-md-6">
+        <label asp-for="@Model.DisplayName"></label>
+        <input asp-for="@Model.DisplayName" class="form-control" required type="text"/>
+        <span asp-validation-for="@Model.DisplayName" class="form-text text-danger"></span>
+        <div class="valid-feedback">👍 Looks good</div>
+    </div>
+
+    <div class="form-group form-check form-switch">
+        <input asp-for="@Model.ShowEmailOnProfile" class="form-check-input" type="checkbox" role="switch">
+        <label asp-for="@Model.ShowEmailOnProfile" class="form-check-label">Display email on public profile</label>
+    </div>
+
+    <div class="form-group col-md-10">
+        <label asp-for="@Model.AboutMe"></label>
+        <textarea asp-for="@Model.AboutMe" class="form-control" maxlength="250"></textarea>
+        <span asp-validation-for="@Model.AboutMe" class="form-text text-danger"></span>
+        <span class="small">250 characters max.</span>
+        <div class="valid-feedback">👍 Looks good</div>
+        <div class="invalid-feedback">This doesn't look right.</div>
+    </div>
+
+    <h4>Where are you in the world?</h4>
+    <div class="form-group">
+        <div class="col-8 col-md-6">
+            <label asp-for="@Model.City"></label>
+            <input asp-for="@Model.City" class="form-control" type="text"/>
+            <span asp-validation-for="@Model.City" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-8 col-md-6">
+            <label asp-for="@Model.Country"></label>
+            <input asp-for="@Model.Country" class="form-control" type="text"/>
+            <span asp-validation-for="@Model.Country" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+        </div>
+    </div>
+
+    <h4>What's your favourites?</h4>
+
+    <div class="form-group">
+        <div class="col-8 col-md-6">
+            <label asp-for="@Model.FavouriteDrink"></label>
+            <input asp-for="@Model.FavouriteDrink" class="form-control" type="text"/>
+            <span asp-validation-for="@Model.FavouriteDrink" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-8 col-md-6">
+            <label asp-for="@Model.FavouriteFood"></label>
+            <input asp-for="@Model.FavouriteFood" class="form-control" type="text"/>
+            <span asp-validation-for="@Model.FavouriteFood" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <h4>Social Links</h4>
+        <p class="small">All social links must be the full url example:</p>
+        <div class="form-group col-md-10">
+            <label asp-for="@Model.Website"></label>
+            <input asp-for="@Model.Website" class="form-control" type="url"/>
+            <span asp-validation-for="@Model.Website" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+            <div class="invalid-feedback">🤔 That doesn't look like a valid URL</div>
+            <span class="small text-muted">Link to anywhere you like, a blog, a dev.to account.</span>
+        </div>
+        <div class="form-group col-md-10">
+            <label asp-for="@Model.SocialGithub"></label>
+            <input asp-for="@Model.SocialGithub" class="form-control" type="url"/>
+            <span asp-validation-for="@Model.SocialGithub" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+            <div class="invalid-feedback">🤔 That doesn't look like a valid URL</div>
+            <div class="small text-muted">Example: https://github.com/YourCoolUsername</div>
+        </div>
+
+
+        <div class="form-group col-md-10">
+            <label asp-for="@Model.SocialTwitter"></label>
+            <input asp-for="@Model.SocialTwitter" class="form-control" type="url"/>
+            <span asp-validation-for="@Model.SocialTwitter" class="form-text text-danger"></span>
+            <div class="valid-feedback">👍 Looks good</div>
+            <div class="invalid-feedback">🤔 That doesn't look like a valid URL, it should look like this: https://example.com</div>
+            <div class="small text-muted">Example: https://twitter.com/YourCoolUsername</div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update my profile settings</button>
+}

@@ -476,3 +476,5 @@ appsettings-schema.json
 
 # Media files
 /wwwroot/media/
+/wwwroot/assets/css/main.css
+/wwwroot/assets/js/main.min.js

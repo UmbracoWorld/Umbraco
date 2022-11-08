@@ -1,12 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>298d490e-32c4-482e-9108-8d463a69f072</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.11" />
     <PackageReference Include="Umbraco.Cms" Version="10.1.0" />
+    <PackageReference Include="uSync" Version="10.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +34,15 @@
 <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
   <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="68.2.0.9" />
   <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2" />
+</ItemGroup>
+<ItemGroup>
+  <Folder Include="Controllers" />
+  <Folder Include="umbraco" />
+  <Folder Include="wwwroot\assets\images\icons" />
+  <Folder Include="wwwroot\templates" />
+</ItemGroup>
+<ItemGroup>
+  <_ContentIncludedByDefault Remove="Views\Shared\Components\Default.cshtml" />
 </ItemGroup>
 
 </Project>

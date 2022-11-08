@@ -1,0 +1,7 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Register>
+@using ContentModels = UmbracoWorld.PublishedModels;
+@{
+	Layout = "Layouts/_LoginRegisterLayout.cshtml";
+}
+
+@await Html.PartialAsync("/Views/Partials/Register.cshtml")
