@@ -39,7 +39,6 @@
   <Folder Include="Controllers" />
   <Folder Include="umbraco" />
   <Folder Include="wwwroot\assets\images\icons" />
-  <Folder Include="wwwroot\build" />
   <Folder Include="wwwroot\templates" />
 </ItemGroup>
 <ItemGroup>

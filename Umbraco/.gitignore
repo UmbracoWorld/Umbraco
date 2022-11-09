@@ -478,3 +478,4 @@ appsettings-schema.json
 /wwwroot/media/
 /wwwroot/assets/css/main.css
 /wwwroot/assets/js/main.min.js
+/wwwroot/build/
