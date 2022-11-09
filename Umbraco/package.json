@@ -1,0 +1,21 @@
+{
+  "name": "Frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c rollup.config.js --watch"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "node-sass": "^7.0.3",
+    "rollup": "^2.39.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.32.3",
+    "svelte-preprocess": "^4.10.7"
+  },
+  "dependencies": {
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-scss": "^3.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+﻿$colors : (
+        "white": #ffffff,
+        "black": #000000,
+        "primary":  #3544B1,
+        "peach-light": #F5C1BC,
+        "peach-dark": #E89199,
+);
+
+//convert each color in our list above into a css variable
+:root {
+  @each $color, $value in $colors {
+    --color-#{$color}: #{$value};
+  }
+}

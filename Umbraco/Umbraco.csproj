@@ -39,10 +39,13 @@
   <Folder Include="Controllers" />
   <Folder Include="umbraco" />
   <Folder Include="wwwroot\assets\images\icons" />
+  <Folder Include="wwwroot\build" />
   <Folder Include="wwwroot\templates" />
 </ItemGroup>
 <ItemGroup>
   <_ContentIncludedByDefault Remove="Views\Shared\Components\Default.cshtml" />
+  <_ContentIncludedByDefault Remove="wwwroot\assets\css\main.css" />
+  <_ContentIncludedByDefault Remove="wwwroot\src\build\bundle.js" />
 </ItemGroup>
 
 </Project>

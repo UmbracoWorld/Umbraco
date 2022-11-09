@@ -1,0 +1,31 @@
+﻿@import '_functions.scss';
+
+body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  
+}
+
+h2 {
+  font-size: rem(60px);
+  margin-bottom: 7rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+
+// Loop through the colors defined in _variables to create handy utility classes for text-coloring;
+@each $color, $value in $colors {
+  .text-#{$color}{
+    color: #{$value};
+  }
+}

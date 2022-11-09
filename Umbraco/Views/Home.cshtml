@@ -2,8 +2,64 @@
     Layout = "./Layouts/_Layout.cshtml";
 }
 
-<div class="home-hero text-center">
-    <div class="inner">
-        <h1 class="display-1 heading">Bringing all things Umbraco, together.</h1>
+<uw-home-hero>
+    <div slot="heading"> Expanding the <span class="text-peach-dark">world</span> of Umbraco</div>
+    <p slot="subheading">Umbraco world is an aggregation tool first and foremost. It’s only purpose is to make things easier to find and easier to digest.</p>
+</uw-home-hero>
+
+<uw-section type="primary">
+    <h2 class="text-white text-center">Showcases</h2>
+    <div class="home-showcases--container">
+        <uw-card
+            profile_src="https://i.pravatar.cc/200"
+            image_src="https://picsum.photos/1000/300"
+            title="Showcase Name"
+            author_name="James Bond"
+            body="Some short text about this showcase, why it's cool and what not."
+            date="@(DateTime.Now.ToShortDateString())">
+        </uw-card>
+        <uw-card
+            profile_src="https://i.pravatar.cc/200"
+            image_src="https://picsum.photos/500/300"
+            title="Showcase Name"
+            author_name="James Bond"
+            body="Some short text about this showcase, why it's cool and what not."
+            date="@(DateTime.Now.ToShortDateString())">
+        </uw-card>
+        <uw-card
+            profile_src="https://i.pravatar.cc/200"
+            image_src="https://picsum.photos/500/300"
+            title="Showcase Name"
+            author_name="James Bond"
+            body="Some short text about this showcase, why it's cool and what not."
+            date="@(DateTime.Now.ToShortDateString())">
+        </uw-card>
+                <uw-card
+                    profile_src="https://i.pravatar.cc/200"
+                    image_src="https://picsum.photos/500/300"
+                    title="Showcase Name"
+                    author_name="James Bond"
+                    body="Some short text about this showcase, why it's cool and what not."
+                    date="@(DateTime.Now.ToShortDateString())">
+                </uw-card>
     </div>
-</div>
+
+</uw-section>
+
+<uw-section type="peach-dark">
+    <h2 class="text-white text-center">Events</h2>
+</uw-section>
+
+<uw-section type="white">
+    <h2 class="text-primary text-center">Strength in numbers</h2>
+</uw-section>
+
+
+<style>
+    .box {
+    width:  100%;
+    height:  400px;
+    background:  white;
+    
+    }
+</style>

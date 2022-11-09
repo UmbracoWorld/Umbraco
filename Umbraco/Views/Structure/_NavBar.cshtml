@@ -11,55 +11,73 @@
     var currentMember = memberManager.AsPublishedMember(loggedinMember) as Member;
 }
 
-<nav class="navbar navbar-expand-lg navbar-light" id="navbar">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center fw-bolder" href="/">
-            <lottie-player class="logo" src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarColor03">
-            <ul class="navbar-nav ms-auto me-auto d-flex align-items-lg-center">
-                @foreach (var link in Model)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link @(Umbraco.AssignedContentItem.Url() == link.Url ? "active" : "")" title="@link.Name" target="@link.Target" href="@link.Url">@link.Name</a>
-                    </li>
-                }
-            </ul>
-            <ul class="navbar-nav ms-auto d-flex align-items-lg-center">
-                @if (isLoggedIn)
-                {
-                    <li class="nav-item ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            @if (currentMember?.ProfileImage is not null)
-                            {
-                                <img class="rounded-circle" src="@currentMember?.ProfileImage.GetCropUrl(ImageCropConstants.Square300)" width="32" height="32"/>
-                            }
-                            else
-                            {
-                                <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="32" height="32"/>
-                            }
-
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <div class="dropdown-item-text">@currentMember?.Name</div>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/account">My account</a>
-
-                            @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = "/" }))
-                            {
-                                <button type="submit" class="dropdown-item text-danger" href="#">Logout</button>
-                            }
-                        </div>
-                    </li>
-                }
-                else
-                {
-                    <a href="/login" class="btn btn-primary">Login</a>
-                }
-            </ul>
-        </div>
+<nav class="navbar navbar-dark" id="navbar">
+    <div class="navbar__inner">
+            <a class="navbar__brand" href="/">
+                Umbraco World
+            </a>
+            @* <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvastop" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"> *@
+            @*     <span class="navbar-toggler-icon"></span> *@
+            @* </button> *@
+            <button class="burger" type="button">
+                <div class="burger-bar" id="burger-bar-1"></div>
+                <div class="burger-bar--invisible"></div>
+                <div class="burger-bar" id="burger-bar-2"></div>
+            </button>
     </div>
+
+
+    @*     <div class="collapse navbar-collapse" id="navbarColor03"> *@
+    @*         <ul class="navbar-nav ms-auto me-auto d-flex align-items-lg-center"> *@
+    @*             @foreach (var link in Model) *@
+    @*             { *@
+    @*                 <li class="nav-item"> *@
+    @*                     <a class="nav-link @(Umbraco.AssignedContentItem.Url() == link.Url ? "active" : "")" title="@link.Name" target="@link.Target" href="@link.Url">@link.Name</a> *@
+    @*                 </li> *@
+    @*             } *@
+    @*         </ul> *@
+    @*         <ul class="navbar-nav ms-auto d-flex align-items-lg-center"> *@
+    @*             @if (isLoggedIn) *@
+    @*             { *@
+    @*                 <li class="nav-item "> *@
+    @*                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> *@
+    @*                         @if (currentMember?.ProfileImage is not null) *@
+    @*                         { *@
+    @*                             <img class="rounded-circle" src="@currentMember?.ProfileImage.GetCropUrl(ImageCropConstants.Square300)" width="32" height="32"/> *@
+    @*                         } *@
+    @*                         else *@
+    @*                         { *@
+    @*                             <img class="rounded-circle" src="/assets/images/userPlaceholder.png" width="32" height="32"/> *@
+    @*                         } *@
+    @* *@
+    @*                     </a> *@
+    @*                     <div class="dropdown-menu dropdown-menu-end"> *@
+    @*                         <div class="dropdown-item-text">@currentMember?.Name</div> *@
+    @*                         <div class="dropdown-divider"></div> *@
+    @*                         <a class="dropdown-item" href="/account">My account</a> *@
+    @* *@
+    @*                         @using (Html.BeginUmbracoForm<UmbLoginStatusController>("HandleLogout", new { RedirectUrl = "/" })) *@
+    @*                         { *@
+    @*                             <button type="submit" class="dropdown-item text-danger" href="#">Logout</button> *@
+    @*                         } *@
+    @*                     </div> *@
+    @*                 </li> *@
+    @*             } *@
+    @*             else *@
+    @*             { *@
+    @*                 <a href="/login" class="btn btn-primary">Login</a> *@
+    @*             } *@
+    @*         </ul> *@
+    @*     </div> *@
+    @* </div> *@
 </nav>
+@* *@
+@* <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel"> *@
+@*   <div class="offcanvas-header"> *@
+@*     <h5 id="offcanvasTopLabel">Offcanvas top</h5> *@
+@*     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> *@
+@*   </div> *@
+@*   <div class="offcanvas-body"> *@
+@*     ... *@
+@*   </div> *@
+@* </div> *@

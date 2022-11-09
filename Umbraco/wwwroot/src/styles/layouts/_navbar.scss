@@ -1,0 +1,52 @@
+﻿.navbar {
+  position: absolute;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  padding: 2rem 5vw;
+  background: transparent;
+  
+  &__inner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: auto;
+  }
+  
+  &__brand {
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 800;
+  }
+}
+
+.burger{
+  background: none;
+  border: none;
+}
+
+.burger-bar, .burger-bar {
+  width: 35px;
+  height: 6px;
+  border-radius: 50px;
+  margin: 6px 0;
+  transition: 0.4s;
+  background-color: var(--color-white);
+  
+  &--invisible{
+    width: 35px;
+    height: 2px;
+    margin: 6px 0;
+  }
+}
+
+.change #burger-bar-1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.change #burger-bar-2 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
