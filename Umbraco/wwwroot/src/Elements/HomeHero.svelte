@@ -3,6 +3,8 @@
     import {onMount} from 'svelte';
 
     let root;
+    let planetLarge;
+    let planetSmall;
 
     const TRIES_PER_BOX = 50;
     const randUint = range => Math.random() * range | 0;
@@ -11,7 +13,7 @@
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
-    onMount(() => {
+    onMount(() => {        
         const placing = [...root.querySelectorAll(".star")].map(el => Bounds(el, 5));
         const fitted = [];
         const areaToFit = Bounds();
@@ -73,10 +75,10 @@
 </script>
 <div class="home-hero" bind:this={root}>
 
-    <img alt="Large peach planet" class="planet--large" src="/assets/images/planetLarge.svg"/>
+    <img bind:this={planetLarge} alt="Large peach planet" class="planet--large" src="/assets/images/planetLarge.svg"/>
 
 
-    <img alt="Small blue planet with moon" class="planet--small" src="/assets/images/planetSmall.svg"/>
+    <img bind:this={planetSmall}  alt="Small blue planet with moon" class="planet--small" src="/assets/images/planetSmall.svg"/>
 
     {#each Array(30) as _, i}
         <img src="/assets/images/Star.svg" class="star" alt="SVG Star"/>
@@ -106,7 +108,7 @@
       max-width: 15ch;
       line-height: clamp(60px, 10vw, 101.5px);
       padding: 1rem;
-      z-index: 999;
+      z-index: 6;
     }
 
     &--inner {
@@ -121,7 +123,7 @@
 
       & p {
         max-width: 50ch;
-        z-index: 999;
+        z-index: 6;
       }
     }
   }
@@ -132,7 +134,7 @@
     left: 0;
     transform: translate(-0%, -90%);
     width: clamp(12rem, 25vw, 20rem);
-    z-index: 99;
+    z-index: 3;
 
 
     @media only screen and (max-width: 600px) {
@@ -147,7 +149,7 @@
     right: -1%;
     transform: translate(-0%, -30%);
     width: clamp(7rem, 10vw, 20rem);
-    z-index: 99;
+    z-index: 3;
 
     @media only screen and (max-width: 600px) {
       top: 15%;
@@ -158,7 +160,7 @@
   .star {
     position: absolute;
     animation: grow 2s infinite;
-    z-index: 9;
+    z-index: 2;
   }
 
   @keyframes grow {

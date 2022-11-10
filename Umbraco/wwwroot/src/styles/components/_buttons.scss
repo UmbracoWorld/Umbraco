@@ -1,0 +1,18 @@
+﻿.btn {
+  padding: .5rem 2rem;
+  border: 0;
+  
+  &--small{
+    padding: 0.5rem 1rem;
+  }
+  
+  &--primary {
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+  
+  &--danger {
+    background: var(--color-red);
+    color: var(--color-white);
+  }
+}
