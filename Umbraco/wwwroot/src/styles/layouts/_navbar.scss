@@ -63,6 +63,8 @@
     font-size: 2rem;
     text-transform: uppercase;
     color: var(--color-black);
+    width: 100%;
+    display: inline-block;
   }
 
   & ul {
@@ -74,6 +76,11 @@
     list-style-type: none;
     margin: 0;
     padding: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--color-peach-light);
+    }
 
     &.active {
       background: var(--color-blue);
