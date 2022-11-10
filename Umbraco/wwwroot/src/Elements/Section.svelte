@@ -13,6 +13,7 @@
 </section>
 
 <style lang="scss">
+  
   .section--inner{
     margin-left: 102px;
     margin-right: 102px;

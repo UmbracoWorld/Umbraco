@@ -144,7 +144,7 @@
   .planet--small {
     position: absolute;
     top: 30%;
-    right: 0;
+    right: -1%;
     transform: translate(-0%, -30%);
     width: clamp(7rem, 10vw, 20rem);
     z-index: 99;
