@@ -64,7 +64,7 @@
                         el.style.top = (this.t + pad) + "px";
                         el.style.left = (this.l + pad) + "px";
                         el.style.width = randomIntFromInterval(12, 30) + "px";
-                        el.style.transform = 'rotate(' + randomIntFromInterval(0, 180) + "deg)";
+                        el.style.setProperty('--star-rotate-deg', randomIntFromInterval(0, 180) + "deg");
                         el.classList.add("placed");
                     }
                     return this;
@@ -137,14 +137,22 @@
     position: absolute;
     top: 90%;
     left: 0;
-    transform: translate(-0%, -90%);
     width: clamp(12rem, 25vw, 20rem);
     z-index: 3;
-
-
+    animation: bounceLarge 5s infinite ease-in-out;
+    
     @media only screen and (max-width: 600px) {
       top: 100%;
       transform: translate(-0%, -100%);
+    }
+  }
+  
+  @keyframes bounceLarge {
+    0%, 100% {
+      transform: translate(-0%, -90%);
+    }
+    50% {
+      transform: translate(-0%, -92%);
     }
   }
 
@@ -152,13 +160,22 @@
     position: absolute;
     top: 30%;
     right: -1%;
-    transform: translate(-0%, -30%);
     width: clamp(7rem, 10vw, 20rem);
     z-index: 3;
+    animation: bounceSmall 3s infinite ease-in-out;
 
     @media only screen and (max-width: 600px) {
       top: 15%;
       transform: translate(-0%, -15%);
+    }
+  }
+
+  @keyframes bounceSmall {
+    0%, 100% {
+      transform: translate(-0%, -30%);
+    }
+    50% {
+      transform: translate(-0%, -32%);
     }
   }
 
@@ -173,16 +190,19 @@
 
   .star {
     position: absolute;
-    animation: grow 2s infinite;
+    animation: grow 3s infinite ease;
     z-index: 2;
   }
-
+  
   @keyframes grow {
     0%, 100% {
-      transform: scale(1);
+      // We have to specify the same rotation to create a "random" effect twice 
+      // because animating will override the styles already set.
+      // So we just set them at all points of the animation
+      transform: scale(1) rotate(var(--star-rotate-deg));
     }
     50% {
-      transform: scale(1.3);
+      transform: scale(1.3) rotate(var(--star-rotate-deg));
     }
   }
 
