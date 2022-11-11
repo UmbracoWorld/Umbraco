@@ -10,6 +10,14 @@
         isActive = !isActive;
     }
 
+    const background = document.getElementById("nav-links--background");
+    Array.from(document.getElementsByClassName("nav-link"))
+        .forEach((item, index) => {
+            item.onmouseover = () => {
+                background.style.backgroundPosition = "0%" + ` ${(index * 20)}%`
+            }
+        });
+
 </script>
 
 <div class="offcanvas {isActive ? 'is-active' : ''}" id="offcanvas_menu">
@@ -58,7 +66,7 @@
     z-index: 9;
     position: fixed;
     right: 5vw;
-    top: 1rem;
+    top: 1.5rem;
   }
 
   .hamburger.is-active {
@@ -76,7 +84,7 @@
   .hamburger.is-active .hamburger-inner,
   .hamburger.is-active .hamburger-inner::before,
   .hamburger.is-active .hamburger-inner::after {
-    background-color: var(--color-black);
+    background-color: var(--burger-bg-color-active);
   }
 
   .hamburger-box {
@@ -86,9 +94,8 @@
     position: relative;
   }
 
-  .hamburger.is-active .hamburger-inner .hamburger-inner__text {
-    top: -10px;
-  }
+
+  
   .hamburger-inner {
     display: block;
     top: 50%;
@@ -102,6 +109,13 @@
       text-transform: uppercase;
       font-weight: 800;
     }
+  }
+
+  .hamburger.is-active .hamburger-inner .hamburger-inner__text {
+    top: -15px;
+    left: -5.5rem;
+    font-size: 1.5rem;
+    color: var(--burger-bg-color-active) !important;
   }
 
   .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
@@ -180,7 +194,7 @@
     z-index: 7;
     top: 0;
     right: -500px;
-    background-color: var(--color-blue-light);
+    background-color: var(--color-blue-dark);
     overflow-x: hidden;
     padding-top: 120px;
     transition: 0.5s;
@@ -196,12 +210,8 @@
     &.is-active {
       opacity: 1;
       right: 0;
-      width: 30vw;
+      width: 100vw;
       box-shadow: -5px 0px 20px 5px rgba(0, 0, 0, 0.2);
-
-      @media(max-width: 600px) {
-        width: 80vw;
-      }
     }
 
   }
