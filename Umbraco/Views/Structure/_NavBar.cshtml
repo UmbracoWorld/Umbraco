@@ -9,14 +9,15 @@
     var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
     var loggedinMember = await memberManager.GetCurrentMemberAsync();
     var currentMember = memberManager.AsPublishedMember(loggedinMember) as Member;
+    var darkNavbar = (bool)(ViewData["DarkNavbar"] ?? false);
 }
 
-<nav class="navbar navbar-dark" id="navbar">
+<nav class="navbar @(darkNavbar ? "bg-blue-light" : "")" id="navbar">
     <div class="navbar__inner">
-        <a class="navbar__brand" href="/">
+        <a class="navbar__brand @(darkNavbar ? "text-black" : "text-white")" href="/">
             Umbraco World
         </a>
-        <uw-navigation-toggle>
+        <uw-navigation-toggle is_dark="@darkNavbar">
             <div class="nav-links" slot="links">
                 <ul>
                     @foreach (var link in Model)

@@ -2,17 +2,24 @@
 
 <script>
     let isActive = false;
+    
+    // Passed in from the navbar to determine whether to set the css var to white or black
+    export let is_dark = false;
 
     function setActive() {
         isActive = !isActive;
     }
+
 </script>
 
 <div class="offcanvas {isActive ? 'is-active' : ''}" id="offcanvas_menu">
     <slot name="links"></slot>
 </div>
 
-<button id="burger" class="hamburger hamburger--emphatic {isActive ? 'is-active' : ''}" on:click={setActive}>
+<button id="burger"
+        class="hamburger hamburger--emphatic {isActive ? 'is-active' : ''}"
+        on:click={setActive}
+        style="--burger-bg-color: {is_dark ? '#000' : '#FFF'} ">
     <div class="hamburger-box">
         <div class="hamburger-inner"></div>
     </div>
@@ -26,6 +33,10 @@
  * @site https://jonsuh.com/hamburgers
  * @link https://github.com/jonsuh/hamburgers
  */
+  :root {
+    --burger-bg-color: #000;
+  }
+
   .hamburger {
     padding: 15px 15px;
     display: inline-block;
@@ -45,8 +56,8 @@
     right: 5vw;
     top: 1rem;
   }
-  
-  .hamburger.is-active{
+
+  .hamburger.is-active {
     right: 1vw;
   }
 
@@ -80,7 +91,7 @@
   .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
     width: 40px;
     height: 5px;
-    background-color: var(--color-white);
+    background-color: var(--burger-bg-color);
     border-radius: 30px;
     position: absolute;
     transition-property: transform;
@@ -158,7 +169,7 @@
     padding-top: 120px;
     transition: 0.5s;
     opacity: 0;
-    
+
     & a {
       padding: 8px 8px 8px 32px;
       text-decoration: none;
@@ -171,7 +182,7 @@
       right: 0;
       width: 30vw;
       box-shadow: -5px 0px 20px 5px rgba(0, 0, 0, 0.2);
-      
+
       @media(max-width: 600px) {
         width: 80vw;
       }

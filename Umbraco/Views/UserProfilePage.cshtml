@@ -4,6 +4,7 @@
 @using Lucene.Net.Analysis.Standard
 @{
     Layout = "Layouts/_Layout.cshtml";
+    ViewData["DarkNavbar"] = true;
 }
 
 @section meta
@@ -11,7 +12,7 @@
     <meta property="og:image" content="@Url.GetCropUrl(Model.Member?.ProfileImage, ImageCropConstants.Square300, urlMode: UrlMode.Absolute)"/>
 }
 
-<div class="container">
+<div class="container site-gutter">
     @if (Model.Member is null)
     {
         <div class="d-flex flex-column align-items-center vh-100 justify-content-center gap-3">
@@ -30,7 +31,7 @@
                 <img width="270" height="270" class="rounded-circle" src="@Url.GetCropUrl(Model.Member.ProfileImage, ImageCropConstants.Square300)"/>
                 <div class="vl"></div>
             </div>
-            <div class="col-8 d-flex flex-column pt-5">
+            <div class="col-8 d-flex flex-column">
                 <h1>@Model.Member.Name</h1>
                 <p class="lead">Job Title</p>
                 <p class="text-uppercase fw-bolder text-dark">
@@ -124,9 +125,12 @@
 </div>
 
 <style>
+:root{
+--body-bg-color: var(--color-white);
+}
     .vl {
     margin-top:  2rem;;
-      border-left: 6px solid white;
+      border-left: 6px solid var(--color-blue-light);
       min-height:  50vh;
       height: 100%;
     }

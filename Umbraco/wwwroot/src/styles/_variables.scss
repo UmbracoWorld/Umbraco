@@ -6,6 +6,7 @@
         "peach-dark": #E89199,
         "blue-light": #E0EAFF,
         "blue": #3544B1,
+        "blue-dark": #222c73,
         "red": #e84352
 );
 
@@ -14,4 +15,6 @@
   @each $color, $value in $colors {
     --color-#{$color}: #{$value};
   }
+
+  --body-bg-color: var(--color-primary);
 }

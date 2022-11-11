@@ -84,7 +84,7 @@
         <img src="/assets/images/Star.svg" class="star" alt="SVG Star"/>
     {/each}
     <div class="home-hero--inner">
-        <h1 class="home-hero--heading">
+        <h1 class="home-hero--heading ">
             <slot name="heading"/>
         </h1>
         <p>
@@ -98,7 +98,7 @@
   @import "../styles/base/_functions";
 
   .home-hero {
-    background: linear-gradient(180deg, rgba(14, 21, 68, 0.48) 0%, rgba(53, 68, 177, 0) 100%);
+    background: linear-gradient(180deg, var(--color-blue-dark) 10%, var(--color-blue) 90%);
     height: 100vh;
     color: var(--color-white);
     overflow: hidden;
@@ -109,6 +109,7 @@
       line-height: clamp(60px, 10vw, 101.5px);
       padding: 1rem;
       z-index: 6;
+      color: var(--color-white);
     }
 
     &--inner {
