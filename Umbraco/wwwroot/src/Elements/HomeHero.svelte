@@ -13,7 +13,7 @@
         return Math.floor(Math.random() * (max - min + 1) + min)
     }
 
-    onMount(() => {        
+    onMount(() => {
         const placing = [...root.querySelectorAll(".star")].map(el => Bounds(el, 5));
         const fitted = [];
         const areaToFit = Bounds();
@@ -78,9 +78,13 @@
     <img bind:this={planetLarge} alt="Large peach planet" class="planet--large" src="/assets/images/planetLarge.svg"/>
 
 
-    <img bind:this={planetSmall}  alt="Small blue planet with moon" class="planet--small" src="/assets/images/planetSmall.svg"/>
+    <img bind:this={planetSmall} alt="Small blue planet with moon" class="planet--small"
+         src="/assets/images/planetSmall.svg"/>
 
-    {#each Array(30) as _, i}
+    <img src="/assets/images/world.png" class="planet--brand" alt="Umbraco World logo" width="150" height="150"/>
+
+
+    {#each Array(15) as _, i}
         <img src="/assets/images/Star.svg" class="star" alt="SVG Star"/>
     {/each}
     <div class="home-hero--inner">
@@ -158,6 +162,15 @@
     }
   }
 
+  .planet--brand {
+    position: absolute;
+    left: 50%;
+    top:-3rem;
+    display: none;
+    transform: rotate(-6deg);
+
+  }
+
   .star {
     position: absolute;
     animation: grow 2s infinite;
@@ -176,6 +189,6 @@
   .move-up {
     animation: moveUp 3s infinite;
   }
-  
+
 
 </style>

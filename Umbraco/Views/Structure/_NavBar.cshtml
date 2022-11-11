@@ -15,7 +15,9 @@
 <nav class="navbar @(darkNavbar ? "bg-blue-light" : "")" id="navbar">
     <div class="navbar__inner">
         <a class="navbar__brand @(darkNavbar ? "text-black" : "text-white")" href="/">
+            <img src="/assets/images/world.png" alt="Umbraco World logo" width="60" height="60"/>
             Umbraco World
+            @* <lottie-player src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player> *@
         </a>
         <uw-navigation-toggle is_dark="@darkNavbar">
             <div class="nav-links" slot="links">

@@ -5,7 +5,7 @@
   left: 0;
   padding: 2rem 5vw;
   background: transparent;
-
+  
   &__inner {
     display: flex;
     flex-direction: row;
@@ -16,10 +16,20 @@
   }
 
   &__brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    
+    &img{
+      max-height: 10vh;
+    }
     text-decoration: none;
+    //height: 10vh;
     font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: 800;
   }
+  
+
 }
 
 .burger {

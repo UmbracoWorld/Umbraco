@@ -21,7 +21,11 @@
         on:click={setActive}
         style="--burger-bg-color: {is_dark ? '#000' : '#FFF'} ">
     <div class="hamburger-box">
-        <div class="hamburger-inner"></div>
+        <div class="hamburger-inner">
+            <span class="hamburger-inner__text">
+                {isActive ? 'CLOSE' : 'MENU'}
+            </span>
+        </div>
     </div>
 </button>
 
@@ -82,10 +86,22 @@
     position: relative;
   }
 
+  .hamburger.is-active .hamburger-inner .hamburger-inner__text {
+    top: -10px;
+  }
   .hamburger-inner {
     display: block;
     top: 50%;
     margin-top: -2px;
+    
+    &__text {
+      color: var(--burger-bg-color);
+      position: absolute;
+      left: -4rem;
+      top: -5px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
   }
 
   .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
@@ -116,9 +132,9 @@
   /*
      * Emphatic
      */
-  .hamburger--emphatic {
-    overflow: hidden;
-  }
+  //.hamburger--emphatic {
+  //  overflow: hidden;
+  //}
 
   .hamburger--emphatic .hamburger-inner {
     transition: background-color 0.125s 0.175s ease-in;
