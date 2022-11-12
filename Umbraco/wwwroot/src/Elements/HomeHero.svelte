@@ -65,6 +65,7 @@
                         el.style.left = (this.l + pad) + "px";
                         el.style.width = randomIntFromInterval(12, 30) + "px";
                         el.style.setProperty('--star-rotate-deg', randomIntFromInterval(0, 180) + "deg");
+                        el.style.setProperty('--star-animation-duration', randomIntFromInterval(1, 3) + "s");
                         el.classList.add("placed");
                     }
                     return this;
@@ -139,7 +140,7 @@
     left: 0;
     width: clamp(12rem, 25vw, 20rem);
     z-index: 3;
-    animation: bounceLarge 5s infinite ease-in-out;
+    animation: bounceLarge 3s infinite ease-in-out;
     
     @media only screen and (max-width: 600px) {
       top: 100%;
@@ -162,7 +163,7 @@
     right: -1%;
     width: clamp(7rem, 10vw, 20rem);
     z-index: 3;
-    animation: bounceSmall 3s infinite ease-in-out;
+    animation: bounceSmall 2.5s infinite ease-in-out;
 
     @media only screen and (max-width: 600px) {
       top: 15%;
@@ -190,7 +191,7 @@
 
   .star {
     position: absolute;
-    animation: grow 3s infinite ease;
+    animation: grow var(--star-animation-duration) infinite ease;
     z-index: 2;
   }
   

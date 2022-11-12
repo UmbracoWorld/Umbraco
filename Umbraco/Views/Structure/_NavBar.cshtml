@@ -12,11 +12,12 @@
     var darkNavbar = (bool)(ViewData["DarkNavbar"] ?? false);
 }
 
-<nav class="navbar @(darkNavbar ? "bg-blue-light" : "")" id="navbar">
+<nav class="navbar @(darkNavbar ? "bg-peach-gradient" : "")" id="navbar">
     <div class="navbar__inner">
         <a class="navbar__brand @(darkNavbar ? "text-black" : "text-white")" href="/">
             <img src="/assets/images/world.png" alt="Umbraco World logo" width="60" height="60"/>
-            Umbraco World
+            <span class="d-none d-sm-block">Umbraco World</span>
+            <span class="d-block d-sm-none">Umbraco<br/>World</span>
             @* <lottie-player src="/assets/images/lottie/logo.json" background="transparent" speed="1" loop autoplay></lottie-player> *@
         </a>
         <uw-navigation-toggle is_dark="@darkNavbar">

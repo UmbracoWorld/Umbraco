@@ -1,0 +1,12 @@
+﻿input[type='text'], select {
+  color: inherit;
+  width: 100%;
+  padding: 1rem 1rem 1rem 0;
+  border: none;
+  border-bottom: solid 4px var(--color-peach-dark);
+  background: transparent;
+}
+
+::placeholder{
+  color: inherit;
+}

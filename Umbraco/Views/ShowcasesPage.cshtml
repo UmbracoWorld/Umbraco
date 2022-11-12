@@ -1,6 +1,73 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShowcasesPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShowcasesPage>
 @using ContentModels = UmbracoWorld.PublishedModels;
 @{
-	Layout = "./Layouts/_Layout.cshtml";
+    Layout = "./Layouts/_Layout.cshtml";
+    ViewData["DarkNavbar"] = false;
 }
+
+<style>
+    :root{
+    --body-bg-color: linear-gradient(180deg, rgba(34,44,115,1) 0%, rgba(53,68,177,1) 100%);
+}
+</style>
+
+<div class="container site-gutter">
+    <div class="showcases--intro text-white pb-5">
+        <div>
+            <h1 class="text-white">Showcases</h1>
+            <p>Here is a collection of user submitted showcases, it's not about how it looks but a chance to show off what you've done.</p>
+        </div>
+        <a href="/" class="btn btn--white">Submit my showcase</a>
+    </div>
+    <div class="row pb-5 text-white">
+        <div class="col-12 col-md-5">
+            <input type="text" placeholder="Enter more than 3 characters to being searching..."/>
+        </div>
+    </div>
+    <div class="row pb-5 text-white">
+        <div class="col-6 col-md-2 me-md-4">
+            <select>
+                <option>Features</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2  me-md-4">
+            <select>
+                <option>Version</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2  me-md-4">
+            <select>
+                <option>Hosted</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2 me-md-4">
+            <select>
+                <option>Sector</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-2 me-md-4">
+            <select>
+                <option>Location</option>
+            </select>
+        </div>
+    </div>
+    <div class="row g-4">
+        @for (int i = 0; i < 20; i++)
+        {
+            <div class="p-2 col-12 col-md-4">
+                <uw-card
+                    href="/showcase/123"
+                    profile_src="https://i.pravatar.cc/200"
+                    image_src="https://picsum.photos/400/200"
+                    title="Showcase Name"
+                    author_name="James Bond"
+                    body="Some short text about this showcase, why it's cool and what not."
+                    date="@(DateTime.Now.ToShortDateString())">
+                </uw-card>
+
+            </div>
+        }
+    </div>
+
+
+</div>

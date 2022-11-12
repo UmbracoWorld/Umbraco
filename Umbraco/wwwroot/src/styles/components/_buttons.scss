@@ -1,6 +1,26 @@
 ﻿.btn {
   padding: .5rem 2rem;
   border: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 800;
+  max-height: 100px;
+  display: flex;
+  align-content: center;
+  text-align: center;
+  
+  
+  &--white {
+    background: var(--color-white);
+    color: var(--color-primary);
+
+    &:hover{
+      background: var(--color-peach-dark);
+      color: var(--color-white);
+      font-weight: 900;
+    }
+  }
   
   &--small{
     padding: 0.5rem 1rem;

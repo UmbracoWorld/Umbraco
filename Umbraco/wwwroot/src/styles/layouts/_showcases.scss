@@ -1,0 +1,13 @@
+﻿.showcases {
+  &--intro {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: start;
+      gap: 2rem;
+    }
+  }
+}

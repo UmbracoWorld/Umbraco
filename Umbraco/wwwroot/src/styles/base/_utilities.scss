@@ -1,6 +1,5 @@
 ﻿.site-gutter {
-  padding-top: clamp(8rem, 20vw, 12rem);
-  padding-bottom: clamp(3rem, 20vw, 6rem);
+  padding: clamp(8rem, 20vw, 12rem) 1rem clamp(3rem, 20vw, 6rem) 1rem;
 }
 
 .rounded-circle {

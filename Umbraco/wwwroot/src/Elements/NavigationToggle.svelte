@@ -30,7 +30,7 @@
         style="--burger-bg-color: {is_dark ? '#000' : '#FFF'} ">
     <div class="hamburger-box">
         <div class="hamburger-inner">
-            <span class="hamburger-inner__text">
+            <span class="hamburger-inner__text d-none d-sm-block">
                 {isActive ? 'CLOSE' : 'MENU'}
             </span>
         </div>

@@ -13,7 +13,7 @@
 <div class="card">
     <a href={href}>
         <div class="card--image">
-            <img src={image_src} alt={title} width="500" height="300"/>
+            <img src={image_src} alt={title}/>
         </div>
         <div class="card--title">
             <h3>{title}</h3>
@@ -41,6 +41,7 @@
     padding: 1rem;
     
     & a{
+      color: var(--color-black);
       text-decoration: none;
     }
 
@@ -61,6 +62,7 @@
     }
 
     &--title {
+      margin-top: 1rem;
       color: var(--color-primary);
     }
 

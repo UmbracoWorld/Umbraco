@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   padding: 2rem 5vw;
-  background: transparent;
+  //background: transparent;
 
   &__inner {
     display: flex;
@@ -26,7 +26,7 @@
 
     text-decoration: none;
     //height: 10vh;
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1.2rem, 5vw, 2rem);
     font-weight: 800;
   }
 

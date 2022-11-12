@@ -10,9 +10,17 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1.2rem;
 }
 
+h1 {
+  font-size: clamp(3rem, 10vw, 6rem)
+}
+
 h2 {
   font-size: rem(60px);
   margin-bottom: 7rem;
+}
+
+p {
+  max-width: 700px;
 }
 
 .text-center {
@@ -26,7 +34,7 @@ h2 {
 
 // Loop through the colors defined in _variables to create handy utility classes for text-coloring;
 @each $color, $value in $colors {
-  .text-#{$color}{
-    color: #{$value};
+  .text-#{$color} {
+    color: #{$value} !important;
   }
 }
