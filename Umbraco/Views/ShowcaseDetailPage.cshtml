@@ -1,0 +1,20 @@
+﻿@inherits UmbracoViewPage<Umbraco.Features.ShowcaseDetail.ShowcaseDetail>
+
+@{
+    Layout = "/Views/Layouts/_Layout.cshtml";
+}
+
+
+@if (Model.Showcase is null)
+{
+    <div class="site-wrapper">
+        <div class="container">
+            <h2>Oops. That's a 404.</h2>
+        </div>
+    </div>
+}
+else
+{
+    @await Html.PartialAsync("/Views/Partials/_showcaseDetails.cshtml", Model.Showcase)
+}
+    
