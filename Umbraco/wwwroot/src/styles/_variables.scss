@@ -1,21 +1,41 @@
-﻿$colors : (
-        "white": #ffffff,
-        "black": #000000,
-        "primary":  #3544B1,
-        "peach-light": #F5C1BC,
-        "peach-dark": #E89199,
-        "blue-light": #E0EAFF,
-        "blue": #3544B1,
-        "blue-dark": #222c73,
-        "red": #e84352
+﻿$colors: (
+        "white": (color: #ffffff, alternative: #3544B1),
+        "black": (color: #000000, alternative: #3544B1),
+        "primary": (color:#3544B1, alternative: #ffffff,),
+        "peach-light": (color: #F5C1BC, alternative: #000),
+        "peach-dark": (color: #E89199, alternative: #000),
+        "blue-light": (color: #E0EAFF, alternative: #000),
+        "blue": (color: #3544B1, alternative: #fff),
+        "blue-dark": (color:#222c73, alternative: #fff),
+        "red": (color:#e84352, alternative: #fff),
 );
 
-//convert each color in our list above into a css variable
-:root {
-  @each $color, $value in $colors {
-    --color-#{$color}: #{$value};
+// automatically generated variables and utilitiy class! Yay!
+
+
+@each $name, $value in $colors {
+
+  :root {
+    --body-bg-color: var(--color-primary);
+    --burger-bg-color-active: #FFF;
+    --color-#{$name}: #{map-get($value, color)};
   }
 
-  --body-bg-color: var(--color-primary);
-  --burger-bg-color-active: #FFF;
+  .text-#{$name} {
+    color: #{map-get($value, color)} !important;
+  }
+
+  .bg-#{$name} {
+    background-color: #{map-get($value, color)} !important;
+    color: #{map-get($value, alternative)} !important;
+    
+    --theme-color: #{map-get($value, alternative)};
+    --theme-bg: #{map-get($value, color)};
+  }
+}
+
+// set some defaults in case no bg- is used.
+:root {
+  --theme-bg: var(--color-blue);
+  --theme-color: var(--color-white);
 }

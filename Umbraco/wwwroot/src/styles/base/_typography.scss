@@ -6,21 +6,35 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--color-primary);
   margin-bottom: 1.2rem;
+
 }
 
 h1 {
-  font-size: clamp(3rem, 10vw, 6rem)
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: clamp(60px, 10vw, 101.5px);
 }
 
-h2 {
+h2, .t-h2 {
   font-size: rem(60px);
-  margin-bottom: 7rem;
+  line-height: clamp(30px, 10vw, 60px);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover:not(.underline) {
+  text-decoration: underline;
 }
 
 p {
   max-width: 700px;
+}
+
+.f-large {
+  font-size: 2rem;
 }
 
 .text-center {
@@ -29,12 +43,4 @@ p {
 
 .text-uppercase {
   text-transform: uppercase;
-}
-
-
-// Loop through the colors defined in _variables to create handy utility classes for text-coloring;
-@each $color, $value in $colors {
-  .text-#{$color} {
-    color: #{$value} !important;
-  }
 }

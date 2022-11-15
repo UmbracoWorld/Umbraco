@@ -1,0 +1,108 @@
+@model Umbraco.Common.Models.Dtos.Showcase
+
+<div class="site-wrapper bg-blue-dark">
+
+
+    <div class="container mb-5">
+        <a href="/showcases" class="mb-2 text-white">← View all showcases</a>
+    </div>
+
+    <div class="container pb-5 showcase-detail">
+        <div class="row gx-5">
+
+            <div class="col-12 col-md-6">
+                <img src="@Model.ImageSource"/>
+            </div>
+            <div class="col-12 col-md-6 text-white showcase-detail--information">
+                <h1 class="text-white t-h2">@Model.Title</h1>
+                <div class="showcase-detail--meta">
+                    <div class="showcase-detail--meta__inner">
+                        <img src="@Model.AuthorSummary.ProfilePictureSource" alt="@Model.AuthorSummary.ProfilePictureAlt" width="64" height="64"/>
+                        <p>@Model.AuthorSummary?.Name</p>
+                    </div>
+                </div>
+                <p>@Model.Description</p>
+                @if (!Model.PublicUrl.IsNullOrWhiteSpace())
+                {
+                    <div class="showcase-detail--links">
+                        <uw-text-link href="@Model.PublicUrl" target="_blank">Visit Site</uw-text-link>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <uw-section type="peach-dark">
+        <div class="container">
+            <h2 class="text-center pb-5">Version & Tech</h2>
+
+            <div class="row">
+                <div class="col">
+                    <div class="showcase-detail--version ">
+                        <h3>Version</h3>
+                        <p class="text-primary shimmer">@Model.MajorVersion.@Model.MinorVersion.@Model.PatchVersion</p>
+                    </div>
+                </div>
+                <div class="col showcase-detail--features">
+                    <div>
+                        <h3 >Features</h3>
+                        <div>
+                            @foreach (var feature in Model.Features)
+                            {
+                                <span class="badge badge--white">@feature</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3>Hosting</h3>
+                        <div>
+                            @foreach (var hosting in Model.Hostings)
+                            {
+                                <span class="badge badge--white">@hosting</span>
+                            }
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <h3 >Sectors</h3>
+                        <div>
+                            @foreach (var sector in Model.Sectors)
+                            {
+                                <span class="badge badge--white">@sector</span>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-auto text-center ">
+
+
+            </div>
+        </div>
+
+    </uw-section>
+
+    @if (Model.ImageHighlights.Any())
+    {
+        <uw-section type="white">
+            <div class="container">
+                <h2 class="text-center">Highlights</h2>
+                <div class="showcase-detail--highlights--container">
+                    @foreach (var imageHighlight in Model.ImageHighlights)
+                    {
+                        <div class="showcase-detail--highlights__image p-4">
+                            <img src="@imageHighlight.Source" alt="@imageHighlight.Title" class="pb-3"/>
+                            <h3>@imageHighlight.Title</h3>
+                            <p>@imageHighlight.Description</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </uw-section>
+    }
+</div>

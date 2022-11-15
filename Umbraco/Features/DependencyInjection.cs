@@ -29,28 +29,41 @@ public static class DependencyInjection
                             "Profile Page Controller",
                             "/user/{slug?}",
                             new { Controller = "UserProfilePage", Action = "Index" })
-                        .ForUmbracoPage(FindContent);
+                        .ForUmbracoPage(context => FindContent(UserProfilePage.ModelTypeAlias, context));
                     endpoints.MapControllerRoute(
                             "Profile Page Controller",
                             "/u/{slug?}",
                             new { Controller = "UserProfilePage", Action = "Index" })
-                        .ForUmbracoPage(FindContent);
+                        .ForUmbracoPage(context => FindContent(UserProfilePage.ModelTypeAlias, context));
+                    endpoints.MapControllerRoute(
+                            "Showcase Detail Controller",
+                            "/s/{id?}",
+                            new { Controller = "ShowcaseDetailPage", Action = "Index" })
+                        .ForUmbracoPage(context => FindContent(ShowcaseDetailPage.ModelTypeAlias, context));
                 })
             });
         });
         return builder;
     }
 
-    private static IPublishedContent FindContent(ActionExecutingContext actionExecutingContext)
+    private static IPublishedContent FindContent(string contentTypeAlias, ActionExecutingContext actionExecutingContext)
     {
-        var umbracoContextAccessor = actionExecutingContext.HttpContext.RequestServices
-            .GetRequiredService<IUmbracoContextAccessor>();
-        var publishedValueFallback = actionExecutingContext.HttpContext.RequestServices
-            .GetRequiredService<IPublishedValueFallback>();
+        var umbracoContextAccessor = actionExecutingContext.HttpContext.RequestServices.GetRequiredService<IUmbracoContextAccessor>();
 
         var umbracoContext = umbracoContextAccessor.GetRequiredUmbracoContext();
-        var productRoot = umbracoContext.Content.GetAtRoot().First().FirstChild<UserProfilePage>();
+        var firstChildOfType = umbracoContext.Content?.GetAtRoot().DescendantsOrSelfOfType(contentTypeAlias).FirstOrDefault();
 
-        return productRoot;
+        return firstChildOfType;
     }
+    
+    // private static IPublishedContent FindContent(ActionExecutingContext actionExecutingContext)
+    // {
+    //     var umbracoContextAccessor = actionExecutingContext.HttpContext.RequestServices
+    //         .GetRequiredService<IUmbracoContextAccessor>();
+    //
+    //     var umbracoContext = umbracoContextAccessor.GetRequiredUmbracoContext();
+    //     var productRoot = umbracoContext.Content.GetAtRoot().First().FirstChild<UserProfilePage>();
+    //
+    //     return productRoot;
+    // }
 }

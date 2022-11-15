@@ -1,4 +1,5 @@
 using Umbraco.Common;
+using Umbraco.Common.Models.ApplicationSettings;
 using Umbraco.Common.Services;
 using Umbraco.Features;
 using Umbraco.Features.MembersAuth.Github;
@@ -47,6 +48,11 @@ namespace UmbracoWorld
             services.AddSingleton<ITempDataService, TempDataService>();
             services.AddSingleton<IToastNotificationService, ToastNotificationService>();
             services.AddSingleton<IMediaUploadService, MediaUploadService>();
+            
+            // TODO, probably pass the base url here instead of grabbing it from service?
+            services.AddHttpClient<IShowcaseService, ShowcaseService>();
+
+            services.Configure<ServiceSettings>(_config.GetSection("Services"));
         }
 
         /// <summary>

@@ -65,7 +65,7 @@
                         el.style.left = (this.l + pad) + "px";
                         el.style.width = randomIntFromInterval(12, 30) + "px";
                         el.style.setProperty('--star-rotate-deg', randomIntFromInterval(0, 180) + "deg");
-                        el.style.setProperty('--star-animation-duration', randomIntFromInterval(1, 3) + "s");
+                        el.style.setProperty('--star-animation-duration', randomIntFromInterval(3, 7) + "s");
                         el.classList.add("placed");
                     }
                     return this;
@@ -200,10 +200,10 @@
       // We have to specify the same rotation to create a "random" effect twice 
       // because animating will override the styles already set.
       // So we just set them at all points of the animation
-      transform: scale(1) rotate(var(--star-rotate-deg));
+      transform: scale(0) rotate(var(--star-rotate-deg));
     }
     50% {
-      transform: scale(1.3) rotate(var(--star-rotate-deg));
+      transform: scale(1) rotate(var(--star-rotate-deg));
     }
   }
 

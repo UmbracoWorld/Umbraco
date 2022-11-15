@@ -1,4 +1,6 @@
-﻿@{
+﻿@inherits UmbracoViewPage<Umbraco.Features.Home.Home>
+
+@{
     Layout = "./Layouts/_Layout.cshtml";
 }
 
@@ -7,45 +9,29 @@
     <p slot="subheading">Umbraco world is an aggregation tool first and foremost. It’s only purpose is to make things easier to find and easier to digest.</p>
 </uw-home-hero>
 
-<uw-section type="primary">
-    <h2 class="text-white text-center">Showcases</h2>
-    <div class="home-showcases--container">
-        <uw-card
-            href="/showcase/123"
-            profile_src="https://i.pravatar.cc/200"
-            image_src="https://picsum.photos/1000/300"
-            title="Showcase Name"
-            author_name="James Bond"
-            body="Some short text about this showcase, why it's cool and what not."
-            date="@(DateTime.Now.ToShortDateString())">
-        </uw-card>
-        <uw-card
-            profile_src="https://i.pravatar.cc/200"
-            image_src="https://picsum.photos/500/300"
-            title="Showcase Name"
-            author_name="James Bond"
-            body="Some short text about this showcase, why it's cool and what not."
-            date="@(DateTime.Now.ToShortDateString())">
-        </uw-card>
-        <uw-card
-            profile_src="https://i.pravatar.cc/200"
-            image_src="https://picsum.photos/500/300"
-            title="Showcase Name"
-            author_name="James Bond"
-            body="Some short text about this showcase, why it's cool and what not."
-            date="@(DateTime.Now.ToShortDateString())">
-        </uw-card>
-                <uw-card
-                    profile_src="https://i.pravatar.cc/200"
-                    image_src="https://picsum.photos/500/300"
-                    title="Showcase Name"
-                    author_name="James Bond"
-                    body="Some short text about this showcase, why it's cool and what not."
-                    date="@(DateTime.Now.ToShortDateString())">
-                </uw-card>
-    </div>
+@if (Model.FeaturedShowcases is not null)
+{
+    <uw-section type="primary">
+        <h2 class="text-white text-center">Showcases</h2>
+        <div class="home-showcases--container">
 
-</uw-section>
+            @foreach (var showcase in Model.FeaturedShowcases)
+            {
+                <uw-card
+                    href="/s/@showcase.Id"
+                    profile_src="@showcase.AuthorSummary.ProfilePictureSource"
+                    image_src="@showcase.ImageSource"
+                    title="@showcase.Title"
+                    author_name="@showcase.AuthorSummary.Name"
+                    body="@showcase.Summary"
+                    date="@showcase.DateCreated.ToShortDateString()">
+                </uw-card>
+            }
+
+        </div>
+
+    </uw-section>
+}
 
 <uw-section type="peach-dark">
     <h2 class="text-white text-center">Events</h2>

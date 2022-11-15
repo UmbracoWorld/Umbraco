@@ -5,7 +5,7 @@ import postcss from 'rollup-plugin-postcss'
 import path from 'path'
 // we can import this to use scss in our svelte components.
 import sveltePreprocess from 'svelte-preprocess';
-
+import mapGet from 'postcss-map-get';
 
 export default {
     // This `main.js` file we wrote
@@ -22,6 +22,7 @@ export default {
         postcss({
             extract: 'bundle.css',
             minimize: true,
+            use: ['sass']
         }),
         svelte({
             preprocess: sveltePreprocess({

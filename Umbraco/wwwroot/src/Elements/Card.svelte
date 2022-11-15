@@ -11,7 +11,7 @@
 
 
 <div class="card">
-    <a href={href}>
+    <a href={href} class="underline">
         <div class="card--image">
             <img src={image_src} alt={title}/>
         </div>

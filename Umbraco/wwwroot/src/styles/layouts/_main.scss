@@ -1,3 +1,8 @@
 ﻿main {
   background: var(--body-bg-color);
 }
+
+.site-wrapper {
+  padding-top: clamp(8rem, 20vw, 10rem);
+  padding-bottom: clamp(3rem, 20vw, 6rem);
+}

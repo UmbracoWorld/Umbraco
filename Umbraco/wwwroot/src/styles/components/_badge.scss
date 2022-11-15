@@ -1,0 +1,14 @@
+﻿.badge {
+  padding: 0.5rem 1rem;
+  border: solid 2px var(--color-black);
+  color: var(--color-black);
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 800;
+  
+  &--white{
+    background: var(--color-white);
+    color: var(--color-primary);
+    border: solid 2px var(--color-white);
+  }
+}
