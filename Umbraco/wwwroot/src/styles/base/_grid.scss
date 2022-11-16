@@ -1,10 +1,4 @@
-﻿/*!
- * Bootstrap Grid v5.0.2 (https://getbootstrap.com/)
- * Copyright 2011-2021 The Bootstrap Authors
- * Copyright 2011-2021 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
-.container,
+﻿.container,
 .container-fluid,
 .container-xxl,
 .container-xl,
@@ -52,15 +46,15 @@
   margin-right: calc(var(--bs-gutter-x) * -.5);
   margin-left: calc(var(--bs-gutter-x) * -.5);
 }
-.row > * {
-  box-sizing: border-box;
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * .5);
-  padding-left: calc(var(--bs-gutter-x) * .5);
-  margin-top: var(--bs-gutter-y);
-}
+//.row > * {
+//  box-sizing: border-box;
+//  flex-shrink: 0;
+//  width: 100%;
+//  max-width: 100%;
+//  padding-right: calc(var(--bs-gutter-x) * .5);
+//  padding-left: calc(var(--bs-gutter-x) * .5);
+//  margin-top: var(--bs-gutter-y);
+//}
 
 .col {
   flex: 1 0 0%;

@@ -2,13 +2,13 @@
 
 public class AuthorSummary
 {
-    public AuthorSummary(string profilePictureSource, string name)
+    public AuthorSummary(string name)
     {
-        ProfilePictureSource = profilePictureSource;
         Name = name;
     }
 
-    public string ProfilePictureSource { get; }
+    public string? ProfilePictureSource { get; set; }
     public string ProfilePictureAlt => Name + " profile picture";
     public string Name { get; }
+    public string Slug { get; set; }
 }

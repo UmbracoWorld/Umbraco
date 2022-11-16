@@ -14,12 +14,15 @@ namespace Umbraco.Features.ShowcaseDetail;
 public class ShowcaseDetailPageController : UmbracoPageController, IRenderController
 {
     private readonly IShowcaseService _showcaseService;
+    private readonly IAuthorInfoService _authorInfoService;
 
     public ShowcaseDetailPageController(ILogger<ShowcaseDetailPageController> logger,
         ICompositeViewEngine compositeViewEngine,
-        IShowcaseService showcaseService) : base(logger, compositeViewEngine)
+        IShowcaseService showcaseService, IAuthorInfoService authorInfoService) 
+        : base(logger, compositeViewEngine)
     {
         _showcaseService = showcaseService;
+        _authorInfoService = authorInfoService;
     }
 
     public async Task<IActionResult> Index(string id)
@@ -28,7 +31,7 @@ public class ShowcaseDetailPageController : UmbracoPageController, IRenderContro
 
         if (showcase is not null)
         {
-            showcase.AuthorSummary = new AuthorSummary("https://api.lorem.space/image/face?w=150&h=150", "James Bond");
+            showcase.AuthorSummary = await _authorInfoService.GetMemberSummary(showcase.AuthorId);
         }
 
         var contentModel = new ShowcaseDetail(CurrentPage)

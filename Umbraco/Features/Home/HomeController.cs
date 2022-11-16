@@ -10,36 +10,31 @@ namespace Umbraco.Features.Home;
 public class HomeController : RenderController
 {
     private readonly IShowcaseService _showcaseService;
+    private readonly IAuthorInfoService _authorInfoService;
+
     public HomeController(ILogger<HomeController> logger, ICompositeViewEngine compositeViewEngine,
-        IUmbracoContextAccessor umbracoContextAccessor, IShowcaseService showcaseService) : base(logger, compositeViewEngine, umbracoContextAccessor)
+        IUmbracoContextAccessor umbracoContextAccessor, IShowcaseService showcaseService,
+        IAuthorInfoService authorInfoService) 
+        : base(logger, compositeViewEngine, umbracoContextAccessor)
     {
         _showcaseService = showcaseService;
+        _authorInfoService = authorInfoService;
     }
 
     public async Task<IActionResult> Home()
     {
         var showcases = await _showcaseService.GetAllShowcases(4);
 
-        // TODO: Figure out how to do this more gracefully?
-        
         foreach (var showcasesItem in showcases.Items)
         {
-            showcasesItem.AuthorSummary = GetAuthorSummary(showcasesItem.AuthorId);
+            showcasesItem.AuthorSummary = await _authorInfoService.GetMemberSummary(showcasesItem.AuthorId);
         }
-        
+
         var contentModel = new Home(CurrentPage)
         {
             FeaturedShowcases = showcases.Items
         };
 
         return CurrentTemplate(contentModel);
-    }
-
-    //TODO: This absoloutely needs to be moved to some service
-    private AuthorSummary GetAuthorSummary(Guid showcasesItemAuthorId)
-    {
-        var authorSummary = new AuthorSummary("https://api.lorem.space/image/face?w=150&h=150", "James Bond");
-
-        return authorSummary;
     }
 }

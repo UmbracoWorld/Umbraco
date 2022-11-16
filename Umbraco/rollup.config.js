@@ -1,11 +1,7 @@
 ﻿import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
-import json from 'rollup-plugin-json';
 import postcss from 'rollup-plugin-postcss'
-import path from 'path'
-// we can import this to use scss in our svelte components.
 import sveltePreprocess from 'svelte-preprocess';
-import mapGet from 'postcss-map-get';
 
 export default {
     // This `main.js` file we wrote
@@ -35,10 +31,10 @@ export default {
             emitCss: false,
             compilerOptions: {
                 customElement: true
-            }
+            },
         }),
 
         // Tell any third-party plugins that we're building for the browser
-        resolve({browser: true}),
+        resolve({browser: true,}),
     ]
 };

@@ -48,6 +48,7 @@ namespace UmbracoWorld
             services.AddSingleton<ITempDataService, TempDataService>();
             services.AddSingleton<IToastNotificationService, ToastNotificationService>();
             services.AddSingleton<IMediaUploadService, MediaUploadService>();
+            services.AddTransient<IAuthorInfoService, AuthorInfoService>();
             
             // TODO, probably pass the base url here instead of grabbing it from service?
             services.AddHttpClient<IShowcaseService, ShowcaseService>();

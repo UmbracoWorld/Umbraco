@@ -1,12 +1,21 @@
-﻿input[type='text'], select {
-  color: inherit;
+﻿input[type='text'], input[type='search'], select {
+  color: var(--color-black);
   width: 100%;
-  padding: 1rem 1rem 1rem 0;
+  padding: 1rem 1rem 1rem 1rem;
   border: none;
+  border-radius: 10px;
   border-bottom: solid 4px var(--color-peach-dark);
-  background: transparent;
+  background: var(--color-white);
 }
 
 ::placeholder{
   color: inherit;
+}
+
+mark {
+  background-color: var(--color-peach-dark);
+}
+
+.refinement-btn{
+  border: solid 5px red;
 }
