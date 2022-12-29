@@ -2,9 +2,11 @@
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.Web;
 using Umbraco.Cms.Web.Common.ApplicationBuilder;
+using Umbraco.Common.Services;
 using Umbraco.Features.Emails;
 using Umbraco.Features.MyAccount;
 using Umbraco.Features.Profile;
+using Umbraco.Features.ShowcaseSubmit;
 using UmbracoWorld.PublishedModels;
 
 namespace Umbraco.Features;
@@ -18,6 +20,7 @@ public static class DependencyInjection
     {
         builder.Services.AddScoped<IMyAccountPageService, MyAccountPageService>();
         builder.Services.AddSingleton<IEmailSenderService, EmailSenderService>();
+        builder.Services.AddSingleton<IShowcaseSubmitService, ShowcaseSubmitService>();
 
         builder.Services.Configure<UmbracoPipelineOptions>(options =>
         {
@@ -38,6 +41,11 @@ public static class DependencyInjection
                     endpoints.MapControllerRoute(
                             "Showcase Detail Controller",
                             "/s/{id?}",
+                            new { Controller = "ShowcaseDetailPage", Action = "Index" })
+                        .ForUmbracoPage(context => FindContent(ShowcaseDetailPage.ModelTypeAlias, context));
+                    endpoints.MapControllerRoute(
+                            "Showcase Detail Controller",
+                            "/showcase/{id?}",
                             new { Controller = "ShowcaseDetailPage", Action = "Index" })
                         .ForUmbracoPage(context => FindContent(ShowcaseDetailPage.ModelTypeAlias, context));
                 })

@@ -1,0 +1,141 @@
+﻿@using UmbracoWorld.PublishedModels
+@using Umbraco.Features.ShowcaseSubmit
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using HtmlHelpers.BeginCollectionItemCore
+@model Umbraco.Features.ShowcaseSubmit.ShowcaseSubmitDto
+@{
+    var showcaseSubmitPage = ViewData["ShowcaseSubmitPage"] as ShowcaseSubmitPage;
+
+    const string methodSignatureName = "SubmitShowcase";
+}
+
+@using (Html.BeginUmbracoForm<ShowcaseSubmitSurfaceController>(methodSignatureName, new { }, new
+{
+    novalidate = "true", @class = "needs-validation pt-3 pb-3"
+}))
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+
+
+    <uw-section>
+        <div class="container">
+            <h2>@showcaseSubmitPage.SummaryInformationHeading</h2>
+            <p class="text-black">@showcaseSubmitPage.SummaryInformationDescription</p>
+
+
+            <div class="form-group col-12 col-md-6 ">
+                <label asp-for="@Model.Title"></label>
+                <input asp-for="@Model.Title" class="form-control bg-peach-light" required type="text"/>
+                <span asp-validation-for="@Model.Title" class="form-text text-red"></span>
+            </div>
+
+            <div class="form-group col-12 col-md-6 ">
+                <label asp-for="@Model.Summary"></label>
+                <textarea maxlength="250" asp-for="@Model.Summary" class="form-control bg-peach-light" required type="text"></textarea>
+                <span asp-validation-for="@Model.Summary" class="form-text text-danger"></span>
+            </div>
+
+            <div class="form-group col-12 col-md-6 ">
+                <label asp-for="@Model.PublicUrl"></label>
+                <input asp-for="@Model.PublicUrl" class="form-control bg-peach-light" required type="text"/>
+                <span asp-validation-for="@Model.PublicUrl" class="form-text text-danger"></span>
+            </div>
+
+            <div class="form-group col-12 col-md-6 ">
+                <label asp-for="@Model.ImageSource"></label>
+                <input asp-for="@Model.ImageSource" class="form-control bg-peach-light" required type="file"/>
+                <span asp-validation-for="@Model.ImageSource" class="form-text text-danger"></span>
+            </div>
+        </div>
+    </uw-section>
+    
+    <uw-section  type="blue-light">
+        <div class="container">
+            <h2>@showcaseSubmitPage.DetailsHeading</h2>
+            <p class="text-black">@showcaseSubmitPage.DetailsDescription</p>
+            <div class="col-12 col-md-6">
+
+                <div class="form-group ">
+                    <label asp-for="@Model.Description"></label>
+                    <textarea maxlength="250" asp-for="@Model.Description" class="form-control bg-peach-light" required type="text"></textarea>
+                    <span asp-validation-for="@Model.Description" class="form-text text-danger"></span>
+                </div>
+                <div id="imageHighlightsCollection">
+                    @Html.EditorFor(x => x.ImageHighlights)
+                </div>
+
+                <input type="button" id="btnAddMore" value="add"/>
+                
+            </div>
+
+
+        </div>
+    </uw-section>
+    
+    <uw-section >
+        <div class="container">
+            <h2>@showcaseSubmitPage.ClassifcationHeading</h2>
+            <p class="text-black">@showcaseSubmitPage.ClassificationDescription</p>
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    @* TODO: Put into selects? *@
+                    <div class="form-group col-4 px-2">
+                        <label asp-for="@Model.MajorVersion"></label>
+                        <input asp-for="@Model.MajorVersion" class="form-control bg-peach-light" required type="text"/>
+                        <span asp-validation-for="@Model.MajorVersion" class="form-text text-danger"></span>
+                    </div>
+                    <div class="form-group col-4  px-2">
+                        <label asp-for="@Model.MinorVersion"></label>
+                        <input asp-for="@Model.MinorVersion" class="form-control bg-peach-light" required type="text"/>
+                        <span asp-validation-for="@Model.MinorVersion" class="form-text text-danger"></span>
+                    </div>
+                    <div class="form-group col-4 px-2">
+                        <label asp-for="@Model.PatchVersion"></label>
+                        <input asp-for="@Model.PatchVersion" class="form-control bg-peach-light" required type="text"/>
+                        <span asp-validation-for="@Model.PatchVersion" class="form-text text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group ">
+                    <label asp-for="@Model.Features"></label>
+                    <select maxlength="250" asp-for="@Model.Features" class="form-control bg-peach-light" required type="text"></select>
+                    <span asp-validation-for="@Model.Features" class="form-text text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="@Model.Sectors"></label>
+                    <select asp-for="@Model.Sectors" class="form-control bg-peach-light" required type="text"></select>
+                    <span asp-validation-for="@Model.Sectors" class="form-text text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="@Model.Hostings"></label>
+                    <select asp-for="@Model.Hostings" class="form-control bg-peach-light" required type="file"></select>
+                    <span asp-validation-for="@Model.Hostings" class="form-text text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </uw-section>
+    <uw-section type="blue-dark">
+        <div class="container">
+                <div class="form-group ">
+                    <button type="submit">Submit your showcase</button>
+                    <p class="small">Well done, you. </p>
+                </div>
+        </div>
+    </uw-section>
+
+
+    <script>
+    document.getElementById('btnAddMore').addEventListener('click', function () {
+      fetch('/umbraco/surface/ShowcaseSubmitSurface/NewItem')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('imageHighlightsCollection').insertAdjacentHTML('beforeend', html);
+        });
+    });
+  </script>
+}

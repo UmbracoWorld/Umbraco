@@ -1,6 +1,47 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShowcaseSubmitPage>
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.ShowcaseSubmitPage>
 @using ContentModels = UmbracoWorld.PublishedModels;
+@using Umbraco.Features.ShowcaseSubmit
+@using Umbraco.Cms.Core.Security
+@inject IMemberManager memberManager
 @{
-	Layout = null;
+    Layout = "/Views/Layouts/_Layout.cshtml";
+    ViewData["DarkNavbar"] = true;
+
+    var isLoggedIn = Context.User?.Identity?.IsAuthenticated ?? false;
+    var loggedinMember = await memberManager.GetCurrentMemberAsync();
+    if (loggedinMember == null)
+    {
+        // public access checks this, if it's not set - throw so we can set it 
+        throw new ArgumentNullException(nameof(loggedinMember));
+    }
+    var currentMember = memberManager.AsPublishedMember(loggedinMember) as ContentModels.Member;
+
+    var formModel = new ShowcaseSubmitDto
+    {
+        AuthorId = currentMember.Key
+    };
+    
 }
+
+<style>
+    .form-control.input-validation-error {
+        outline: solid 5px  var(--color-red);  
+    }
+    .field-validation-error {
+    color: var(--color-red);  
+    }
+</style>
+<div class="site-wrapper bg-white">
+    <uw-section type="primary">
+        <div class="container pt-md-5 pb-md-5">
+            <h1>@Model.PageHeader</h1>
+            <p>@Model.PageDescription</p>
+        </div>
+    </uw-section>
+    @{
+        var vd = new ViewDataDictionary(ViewData) { { "ShowcaseSubmitPage", Model } };
+    }
+    @Html.Partial("Partials/_showcaseSubmitForm.cshtml", formModel, vd)
+
+
+</div>

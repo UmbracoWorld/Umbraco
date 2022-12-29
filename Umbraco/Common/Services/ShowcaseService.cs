@@ -56,4 +56,19 @@ public class ShowcaseService : IShowcaseService
         // return empty so that our calling methods never "fail"
         return JsonConvert.DeserializeObject<PaginatedList<Showcase>>(response) ?? new PaginatedList<Showcase>();
     }
+    
+    public async Task<Showcase?> CreateShowcase(Showcase showcase)
+    {
+        var url = BaseUrl + "api/showcase";
+
+        var response = await _httpClient.PostAsJsonAsync(url, showcase);
+
+        if (!response.IsSuccessStatusCode) 
+            return null;
+        
+        var json = await response.Content.ReadAsStringAsync();
+        var showcaseObj = JsonConvert.DeserializeObject<Showcase>(json);
+        return showcaseObj;
+
+    }
 }
